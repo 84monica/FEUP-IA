@@ -17,8 +17,12 @@ class GameState:
 
     def children(self):
         # returns the possible moves
-        
-        return []
+        states = []
+        for row in range(len(self.board)):
+            for col in range(len(self.board[row])):
+                for shape in range(1, 4):
+                    states.append(self.put_shape([row, col], shape))
+        return states
 
     def put_shape(self, position, shape):
         # function that performs a move given the row and column number and returns the new state
@@ -42,6 +46,9 @@ class GameState:
         # checks if the board is complete
         return True
 
+    def print_move_history(self):
+        return
+
 game = GameState([[0, 0, 0, 1, 2], 
                   [0, 0, 0, 2, 0], 
                   [3, 3, 3, 0, 3],
@@ -50,4 +57,5 @@ game = GameState([[0, 0, 0, 1, 2],
 
 print(game.board)
 print(game.move_history)
+print(game.children()[0].board)
 print(game.put_shape([1, 2], 3).board)
