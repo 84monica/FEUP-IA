@@ -40,6 +40,8 @@ class GameState:
         # adds new state to move_history
         state.move_history.append(state.board)
 
+        print(state.board)
+
         return state
     
     def is_palindrome(self):
@@ -47,7 +49,14 @@ class GameState:
         return True
 
     def print_move_history(self):
-        return
+        print("History:\n")
+        i = 1
+        for state in self.move_history:
+            print("move " + str(i) + ":")
+            i += 1
+            for row in state:
+                print("        " + str(row))
+            print("\n")
 
 game = GameState([[0, 0, 0, 1, 2], 
                   [0, 0, 0, 2, 0], 
@@ -55,7 +64,8 @@ game = GameState([[0, 0, 0, 1, 2],
                   [0, 1, 1, 0, 3],
                   [0, 0, 2, 0, 0]])
 
-print(game.board)
-print(game.move_history)
-print(game.children()[0].board)
-print(game.put_shape([1, 2], 3).board)
+game.move_history
+game.children()[0].board
+game.put_shape([1, 2], 3)
+
+game.print_move_history()
