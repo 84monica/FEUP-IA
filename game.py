@@ -62,31 +62,32 @@ class GameState:
             col.append(self.board[i][col_pos])
         return col
 
+    def remove_zeros(self, list):
+        final_list = []
+        for item in list:
+            if item != 0:
+                final_list.append(item)
+        return final_list
+
     def row_palindrome(self, row_pos):
         # get row
         row = self.board[row_pos]
 
         # get row without zeros
-        check_row = []
-        for item in row:
-            if item != 0:
-                check_row.append(item)
+        row = self.remove_zeros(row)
         
         # check palindrome
-        return check_row == check_row[::-1]
+        return row == row[::-1]
 
     def col_palindrome(self, col_pos):
         # get col
         col = self.get_col(col_pos)
 
         # get col without zeros
-        check_col = []
-        for item in col:
-            if item != 0:
-                check_col.append(item)
+        col = self.remove_zeros(col)
 
         # check palindrome
-        return check_col == check_col[::-1]
+        return col == col[::-1]
     
     def is_palindrome(self):
         # checks if the board is palindrome
@@ -132,4 +133,5 @@ print(state2.print_move_history())
 # Test Palindrome
 print(game.is_palindrome())
 print(game.col_palindrome(1))
+print(game.row_palindrome(4))
 print(game1.is_palindrome())
