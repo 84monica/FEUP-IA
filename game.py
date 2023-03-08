@@ -43,9 +43,35 @@ class GameState:
         print(state.board)
 
         return state
+
+    def row_palindrome(self, row_pos):
+        # get row
+        row = self.board[row_pos]
+
+        # get row without zeros
+        check_row = []
+        for item in row:
+            if item != 0:
+                check_row.append(item)
+        
+        # check palindrome
+        return check_row == check_row[::-1]
+
+    def col_palindrome(self, col_pos):
+        # get col without zeros
+        col = []
+        for i in range(len(self.board)):
+            if self.board[i][col_pos] != 0:
+                col.append(self.board[i][col_pos])
+
+        # check palindrome
+        return col == col[::-1]
     
     def is_palindrome(self):
-        # checks if the board is complete
+        # checks if the board is palindrome
+        for i in range(len(self.board)):
+            if not (self.row_palindrome(i) and self.col_palindrome(i)):
+                return False
         return True
 
     def print_move_history(self):
@@ -64,8 +90,16 @@ game = GameState([[0, 0, 0, 1, 2],
                   [0, 1, 1, 0, 3],
                   [0, 0, 2, 0, 0]])
 
-game.move_history
-game.children()[0].board
-game.put_shape([1, 2], 3)
+game1 = GameState([[0, 0, 2, 1, 2], 
+                  [2, 1, 1, 2, 0], 
+                  [3, 3, 3, 0, 3],
+                  [3, 1, 1, 1, 3],
+                  [2, 0, 2, 0, 2]])
 
-game.print_move_history()
+print(game.board)
+print(game.move_history)
+print(game.children()[0].board)
+print(game.put_shape([1, 2], 3).board)
+print(game.is_palindrome())
+
+print(game1.is_palindrome())
