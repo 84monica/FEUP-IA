@@ -2,6 +2,8 @@ from copy import deepcopy
 
 class GameState:
     def __init__(self, board, move_history=[]):
+        # initializer of the game state
+
         # board(list[list[int]]) - the state of the board
         # move_history(list[list[list[int]]]) - the history of the moves up until this state
 
@@ -16,7 +18,8 @@ class GameState:
         self.move_history = [] + move_history + [self.board]
 
     def children(self):
-        # returns the possible moves
+        # function that returns the possible moves
+
         states = []
         for row in range(len(self.board)):
             for col in range(len(self.board[row])):
@@ -26,15 +29,14 @@ class GameState:
                         states.append(state)
         return states
 
-    def put_shape(self, position, shape):
-        # function that performs a move given the row and column number and returns the new state
-        state = GameState(self.board, self.move_history)
+    def check_put_shape(self, position, shape):
+        # function that checks if its possible to put shape in a certain position 
 
         row, col = position[0], position[1]
 
-        # checks if its possible 
-        if (state.board[row][col] != 0):
-            return None
+        # there is an empty space
+        if (self.board[row][col] != 0):
+            return False
 
         # checks if piece type is already present on row or col
         piece_is_present = False
@@ -47,22 +49,35 @@ class GameState:
                 piece_is_present = True
         
         if not piece_is_present:
+            return False
+        return True
+
+    def put_shape(self, position, shape):
+        # function that performs a move given the row and column number and returns the new state
+        
+        state = GameState(self.board, self.move_history)
+
+        # checks if put shape is possible
+        if not self.check_put_shape(position, shape):
             return None
 
-
         # updates board
+        row, col = position[0], position[1]
         state.board[row][col] = shape
 
         return state
 
-    def get_col(self, col_pos):
-        # get col without zeros
+    def get_col(self, col_idx):
+        # function that gets col given col index
+
         col = []
         for i in range(len(self.board)):
-            col.append(self.board[i][col_pos])
+            col.append(self.board[i][col_idx])
         return col
 
     def remove_zeros(self, list):
+        # function that remove zeros from list (to check later if its palindrome)
+
         final_list = []
         for item in list:
             if item != 0:
@@ -70,6 +85,8 @@ class GameState:
         return final_list
 
     def row_palindrome(self, row_pos):
+        # function that checks if row is palindrome
+
         # get row
         row = self.board[row_pos]
 
@@ -80,6 +97,8 @@ class GameState:
         return row == row[::-1]
 
     def col_palindrome(self, col_pos):
+        # function that checks if col  is palindrome
+
         # get col
         col = self.get_col(col_pos)
 
@@ -90,13 +109,16 @@ class GameState:
         return col == col[::-1]
     
     def is_palindrome(self):
-        # checks if the board is palindrome
+        # function that checks if the board is palindrome
+
         for i in range(len(self.board)):
             if not (self.row_palindrome(i) and self.col_palindrome(i)):
                 return False
         return True
 
     def print_move_history(self):
+        # function that prints move history up until a certain point
+
         print("History:\n")
         i = 0
         for state in self.move_history:
@@ -106,6 +128,8 @@ class GameState:
                 print("        " + str(row))
             print("\n")
 
+
+# TESTING
 game = GameState([[0, 0, 0, 1, 2], 
                   [0, 0, 0, 2, 0], 
                   [3, 3, 3, 0, 3],
@@ -124,8 +148,10 @@ print(game.move_history)
 # Test Put Piece
 print(game.put_shape([1, 4], 1))
 print(game.put_shape([1, 0], 3))
+print(game.put_shape([1, 0], 4))
+print(game.put_shape([4, 3], 3))
 
-# # Test Print Move History
+# Test Print Move History
 state1 = game.put_shape([0, 0], 3)
 state2 = state1.put_shape([0, 1], 1)
 print(state2.print_move_history())
