@@ -55,6 +55,8 @@ def place_piece(board, row, col):
 					if event.key == pygame.K_1:
 						res = gameb.put_shape([row,col], 1)
 						if res == None:
+							screen.fill(WHITE)
+							draw_board(board)
 							shape_not_possible()
 							return
 						else:
@@ -64,6 +66,9 @@ def place_piece(board, row, col):
 					elif event.key == pygame.K_2:
 						res = gameb.put_shape([row,col], 2)
 						if res == None:
+							screen.fill(WHITE)
+							draw_board(board)
+							shape_not_possible()
 							return
 						else:
 							#board = res.board
@@ -72,6 +77,9 @@ def place_piece(board, row, col):
 					elif event.key == pygame.K_3:
 						res = gameb.put_shape([row,col], 3)
 						if res == None:
+							screen.fill(WHITE)
+							draw_board(board)
+							shape_not_possible()
 							return
 						else:
 							#board = res.board
@@ -79,6 +87,8 @@ def place_piece(board, row, col):
 						return True
 
 def shape_not_possible():
+
+	#create surfice with error messager
 	menuErro_font = pygame.font.Font(None, 30)
 	error_message1 = menuErro_font.render("This shape is not present in this row or col!", True, BLACK)
 	error_message2 = menuErro_font.render("You cannot use!", True, BLACK)
@@ -91,10 +101,18 @@ def shape_not_possible():
 	menuErro_surf.blit(error_message1, (menuErro_width // 2 - error_message1.get_width() // 2, 0))
 	menuErro_surf.blit(error_message2, (menuErro_width // 2 - error_message2.get_width() // 2, error_message1.get_height()))
 	screen.blit(menuErro_surf, menuErro_rec)
+	
 	pygame.display.flip()
+
+	# Wait some time to error message to disappear
+	init_time = pygame.time.get_ticks()
+	total_time = 2000 # ms
 
 	#make the messager disapper after some time or some keystroke
 	while True:
+		if pygame.time.get_ticks() - init_time >= total_time:
+			return
+		
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -102,6 +120,7 @@ def shape_not_possible():
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					return True
+
 
 def draw_board(board):
 	for i in range(BOARD_SIZE):
@@ -145,6 +164,7 @@ while True:
 			if i < BOARD_SIZE and j < BOARD_SIZE and board[i][j] == 0:
 				place_piece(board, i, j)
 	
+	gameb.board=board
 	screen.fill(WHITE)
 	draw_board(board)
 	
