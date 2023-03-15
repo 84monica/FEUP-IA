@@ -55,7 +55,7 @@ def place_piece(board, row, col):
 					if event.key == pygame.K_1:
 						res = gameb.put_shape([row,col], 1)
 						if res == None:
-							#shape_not_possible()
+							shape_not_possible()
 							return
 						else:
 							#board = res.board
@@ -77,8 +77,31 @@ def place_piece(board, row, col):
 							#board = res.board
 							board[row][col] = 3
 						return True
-#def shape_not_possible()
-	
+
+def shape_not_possible():
+	menuErro_font = pygame.font.Font(None, 30)
+	error_message1 = menuErro_font.render("This shape is not present in this row or col!", True, BLACK)
+	error_message2 = menuErro_font.render("You cannot use!", True, BLACK)
+	menuErro_width = max(error_message1.get_width(), error_message2.get_width()) + 5
+	menuErro_height = error_message1.get_height() * 3
+	menuErro_surf = pygame.Surface((menuErro_width, menuErro_height))
+	menuErro_surf.fill(WHITE)
+	menuErro_rec = menuErro_surf.get_rect()
+	menuErro_rec.center = (WIDTH // 2, HEIGHT // 2)
+	menuErro_surf.blit(error_message1, (menuErro_width // 2 - error_message1.get_width() // 2, 0))
+	menuErro_surf.blit(error_message2, (menuErro_width // 2 - error_message2.get_width() // 2, error_message1.get_height()))
+	screen.blit(menuErro_surf, menuErro_rec)
+	pygame.display.flip()
+
+	#make the messager disapper after some time or some keystroke
+	while True:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				return
+			elif event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_q:
+					return True
 
 def draw_board(board):
 	for i in range(BOARD_SIZE):
