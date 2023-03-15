@@ -1,7 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
-import game
+from game_state import GameState
 
 pygame.init()
 
@@ -149,7 +149,7 @@ board = [[0, 0, 0, 1, 2],
 		 [0, 1, 1, 0, 3],
 		 [0, 0, 2, 0, 0]]
 
-gameb = game.GameState(board)
+gameb = GameState(board)
 
 while True:
 	

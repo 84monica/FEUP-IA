@@ -50,6 +50,10 @@ class GameState:
         
         if not piece_is_present:
             return False
+
+        # check if row and col are already palindromes
+        if (self.row_palindrome(row) and self.col_palindrome(col)):
+            return False
         return True
 
     def put_shape(self, position, shape):
@@ -136,28 +140,73 @@ game = GameState([[0, 0, 0, 1, 2],
                   [0, 1, 1, 0, 3],
                   [0, 0, 2, 0, 0]])
 
-game1 = GameState([[0, 0, 2, 1, 2], 
-                  [2, 1, 1, 2, 0], 
-                  [3, 3, 3, 0, 3],
-                  [3, 1, 1, 1, 3],
-                  [2, 0, 2, 0, 2]])
 
-print(game.board)
-print(game.move_history)
+game1 = GameState([[0, 0, 0, 0, 0], 
+                  [1, 0, 2, 0, 0], 
+                  [1, 1, 1, 1, 0],
+                  [0, 0, 0, 2, 3],
+                  [0, 0, 3, 0, 3]])
+
+game2 = GameState([[0, 0, 0, 0, 0], 
+                  [3, 2, 0, 0, 0], 
+                  [0, 2, 1, 0, 3],
+                  [2, 0, 3, 1, 0],
+                  [0, 0, 0, 2, 0]])
+
+game3 = GameState([[1, 1, 0, 0, 0], 
+                  [2, 0, 0, 0, 0], 
+                  [0, 3, 3, 2, 0],
+                  [0, 0, 1, 0, 0],
+                  [0, 0, 1, 3, 0]])
+
+game4 = GameState([[0, 0, 0, 3, 0], 
+                  [3, 3, 0, 0, 0], 
+                  [0, 0, 0, 0, 1],
+                  [2, 1, 3, 0, 0],
+                  [0, 0, 2, 0, 0]])
+
+game5 = GameState([[1, 1, 0, 0, 0], 
+                  [0, 2, 2, 0, 3], 
+                  [0, 2, 0, 1, 2],
+                  [3, 0, 3, 3, 0],
+                  [0, 0, 0, 0, 0]])
+
+def games():
+    return (
+        game,
+        game1,
+        game2,
+        game3,
+        game4,
+        game5
+    )
+
+# -------------------------------------------------
+# TESTS
+# -------------------------------------------------
+
+# solution1 = GameState([[0, 0, 2, 1, 2], 
+#                   [2, 1, 1, 2, 0], 
+#                   [3, 3, 3, 0, 3],
+#                   [3, 1, 1, 1, 3],
+#                   [2, 0, 2, 0, 2]])
+
+# print(game.board)
+# print(game.move_history)
 
 # Test Put Piece
-print(game.put_shape([1, 4], 1))
-print(game.put_shape([1, 0], 3))
-print(game.put_shape([1, 0], 4))
-print(game.put_shape([4, 3], 3))
+# print(game.put_shape([1, 4], 1))
+# print(game.put_shape([1, 0], 3))
+# print(game.put_shape([1, 0], 4))
+# print(game.put_shape([4, 3], 3))
 
 # Test Print Move History
-state1 = game.put_shape([0, 0], 3)
-state2 = state1.put_shape([0, 1], 1)
-print(state2.print_move_history())
+# state1 = game.put_shape([0, 0], 3)
+# state2 = state1.put_shape([0, 1], 1)
+# print(state2.print_move_history())
 
 # Test Palindrome
-print(game.is_palindrome())
-print(game.col_palindrome(1))
-print(game.row_palindrome(4))
-print(game1.is_palindrome())
+# print(game.is_palindrome())
+# print(game.col_palindrome(1))
+# print(game.row_palindrome(4))
+# print(solution1.is_palindrome())
