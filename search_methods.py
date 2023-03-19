@@ -45,8 +45,29 @@ def depth_first_search(problem):
                 stack.insert(0,child) 
     return None
 
-def iterative_deepening(problem, depth):
-    # TODO
+def depth_limited_search(problem, depth):
+    stack = [(problem, 0)] # start with depth 0
+    visited = set() # to not visit the same state twice
+
+    while stack:
+        (state, current_depth) = stack.pop(0)
+        visited.add(state)
+
+        if state.is_palindrome():
+            return state
+
+        if current_depth < depth:
+            for child in state.children():
+                if child not in visited:
+                    stack.insert(0,(child, current_depth+1)) # add depth
+    return None
+
+def iterative_deepening(problem):
+    # solves game using iterative deepening
+
+    for depth in range(100):
+        result = depth_limited_search(problem, depth)
+        if result != None: return result
     return None
 
 def uniform_cost(problem):
@@ -141,6 +162,17 @@ print("TIME: " + str(finish_time-start_time))
 # print("DFS --------------------")
 # solution.print_move_history()
 # print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : not working (maybe it's suposed to not work?)
+# ------------------------------
+# Test iterative deepening
+start_time = time.time()
+solution = iterative_deepening(games()[6])
+finish_time = time.time()
+print("Iterative Deepening --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
 # NOTE : doesn't work well for game, game3 and game4
