@@ -15,11 +15,11 @@ def breadth_first_search(problem):
     visited = set() # to not visit the same state twice
 
     while queue:
-        state = queue.pop()
+        state = queue.pop(0)
         visited.add(state)
 
         if state.is_palindrome():
-            return state.move_history
+            return state
 
         for child in state.children():
             if child not in visited:
@@ -27,15 +27,31 @@ def breadth_first_search(problem):
     return None
 
 def depth_first_search(problem):
-    # TODO
+    # solves game using dfs
+
+    # problem(GameState) - the initial state
+    stack = [problem]
+    visited = set() # to not visit the same state twice
+
+    while stack:
+        state = stack.pop(0)
+        visited.add(state)
+
+        if state.is_palindrome():
+            return state
+
+        for child in state.children():
+            if child not in visited:
+                stack.insert(0,child) 
     return None
 
-def iterative_deepening(problem):
+def iterative_deepening(problem, depth):
     # TODO
     return None
 
 def uniform_cost(problem):
     # TODO
+    # Acho que é igual à bsf se o custo for 1
     return None
 
 
@@ -89,8 +105,12 @@ def greedy_search(problem, heuristic):
     return None
 
 def a_star_search(problem, heuristic):
-    # TODO
-    return None
+    # problem (GameState) - the initial state
+    # heuristic (function) - the heuristic function that takes a board (matrix), and returns an integer
+
+    # this is very similar to greedy, the difference is that it takes into account the cost of the path so far
+    return greedy_search(problem, lambda state: heuristic(state) + len(state.move_history))
+
 
 def weighted_a_star_search(problem, heuristic):
     # TODO
@@ -101,12 +121,24 @@ def weighted_a_star_search(problem, heuristic):
 # -------------------------------------------------
 
 # ------------------------------
-# NOTE : not working (maybe it's suposed to not work?)
+# NOTE : working better now but for easier puzzles
 # ------------------------------
 # Test BFS
+start_time = time.time()
+solution = breadth_first_search(games()[6])
+finish_time = time.time()
+print("BFS --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : not working (maybe it's suposed to not work?)
+# ------------------------------
+# Test DFS
 # start_time = time.time()
-# solution = breadth_first_search(games()[0])
+# solution = depth_first_search(games()[6])
 # finish_time = time.time()
+# print("DFS --------------------")
 # solution.print_move_history()
 # print("TIME: " + str(finish_time-start_time))
 
@@ -115,7 +147,19 @@ def weighted_a_star_search(problem, heuristic):
 # ------------------------------
 # Test Greedy Search
 start_time = time.time()
-solution = greedy_search(games()[1], h1)
+solution = greedy_search(games()[6], h1)
 finish_time = time.time()
+print("Greedy --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : tem de se mudar o custo não sei é para o que
+# ------------------------------
+# Test A* Search
+start_time = time.time()
+solution = a_star_search(games()[6], h1)
+finish_time = time.time()
+print("A* --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
