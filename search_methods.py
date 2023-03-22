@@ -95,16 +95,16 @@ def greedy_search(problem, heuristic):
     # problem (GameState) - the initial state
     # heuristic (function) - the heuristic function that takes a board (matrix), and returns an integer
     setattr(GameState, "__lt__", lambda self, other: heuristic(self) < heuristic(other))
-    states = [problem]
+    states = [(problem, heuristic(problem))]
     visited = set() # to not visit the same state twice
-    
 
     while states:
         # heapq.heappop(states) can be used to POP a state from the state list
         # heapq.heappush(states, new_state) can be used to APPEND a new state to the state list
         
         # state heap
-        state = heapq.heappop(states)
+        state = heapq.heappop(states)[0]
+        
         # add to visited
         visited.add(state)
 
@@ -112,17 +112,12 @@ def greedy_search(problem, heuristic):
         if state.is_palindrome():
             return state
 
-        # get list of possible states ordered by heuristic
-        ordered_states = []
+        # get possible states
         for child in state.children():
             if child not in visited:
-                heapq.heappush(ordered_states, (heuristic(child), child))
-        ordered_states.sort()
+                heapq.heappush(states, (child, heuristic(child)))
 
-        # push ordered states into heap
-        for state in ordered_states:
-            heapq.heappush(states, state[1]) 
-    
+        states.sort()
     return None
 
 def a_star_search(problem, heuristic):
@@ -190,7 +185,7 @@ print("TIME: " + str(finish_time-start_time))
 # ------------------------------
 # Test A* Search
 # start_time = time.time()
-# solution = a_star_search(normal_difficulty_games()[3], h1)
+# solution = a_star_search(normal_difficulty_games()[0], h1)
 # finish_time = time.time()
 # print("A* --------------------")
 # solution.print_move_history()
