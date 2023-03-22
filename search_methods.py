@@ -1,6 +1,6 @@
 import time
 import heapq
-from game_state import GameState, games
+from game_state import GameState, easy_games, normal_difficulty_games, hard_games, very_hard_games
 
 
 # -------------------------------------------------
@@ -142,11 +142,11 @@ def weighted_a_star_search(problem, heuristic):
 # -------------------------------------------------
 
 # ------------------------------
-# NOTE : working better now but for easier puzzles
+# NOTE : working for easy_games
 # ------------------------------
 # Test BFS
 start_time = time.time()
-solution = breadth_first_search(games()[6])
+solution = breadth_first_search(easy_games()[0])
 finish_time = time.time()
 print("BFS --------------------")
 solution.print_move_history()
@@ -157,29 +157,29 @@ print("TIME: " + str(finish_time-start_time))
 # ------------------------------
 # Test DFS
 # start_time = time.time()
-# solution = depth_first_search(games()[6])
+# solution = depth_first_search(easy_games()[0])
 # finish_time = time.time()
 # print("DFS --------------------")
 # solution.print_move_history()
 # print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : not working (maybe it's suposed to not work?)
+# NOTE : working for easy_games
 # ------------------------------
 # Test iterative deepening
 start_time = time.time()
-solution = iterative_deepening(games()[6])
+solution = iterative_deepening(easy_games()[0])
 finish_time = time.time()
 print("Iterative Deepening --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : doesn't work well for game, game3 and game4
+# NOTE : working for normal_difficulty_games
 # ------------------------------
 # Test Greedy Search
 start_time = time.time()
-solution = greedy_search(games()[6], h1)
+solution = greedy_search(normal_difficulty_games()[0], h1)
 finish_time = time.time()
 print("Greedy --------------------")
 solution.print_move_history()
@@ -189,9 +189,9 @@ print("TIME: " + str(finish_time-start_time))
 # NOTE : tem de se mudar o custo não sei é para o que
 # ------------------------------
 # Test A* Search
-start_time = time.time()
-solution = a_star_search(games()[6], h1)
-finish_time = time.time()
-print("A* --------------------")
-solution.print_move_history()
-print("TIME: " + str(finish_time-start_time))
+# start_time = time.time()
+# solution = a_star_search(normal_difficulty_games()[3], h1)
+# finish_time = time.time()
+# print("A* --------------------")
+# solution.print_move_history()
+# print("TIME: " + str(finish_time-start_time))
