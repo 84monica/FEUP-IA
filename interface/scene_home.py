@@ -1,10 +1,15 @@
-import pygame
+import pygame, sys
 from scene import Scene
+sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
+import scene_ai_uniform
+import scene_human
 
 class SceneHome(Scene):
     """ Welcome screen of the game, the first one to be loaded."""
  
     def __init__(self, director):
+        self.dir = director
+
         # Set up the font
         self.font = pygame.font.SysFont('Arial', 34)
         self.title_font = pygame.font.SysFont('Arial', 70)
@@ -35,13 +40,20 @@ class SceneHome(Scene):
         self.first_title_text_rect = (300, 140)
         self.second_title_text_rect = (350, 210)
  
+    def cancel_thread(self):
+        pass
+
     def on_update(self):
         pass
  
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(310, 400, 140, 70).collidepoint(event.pos):
-                print('Button clicked!')
+                return scene_ai_uniform.SceneAiUniform(self.dir)
+            if pygame.Rect(560, 400, 140, 70).collidepoint(event.pos):
+                return scene_human.SceneHuman(self.dir)
+
+        return self
  
     def on_draw(self, screen):
         # Draw background
