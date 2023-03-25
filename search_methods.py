@@ -113,9 +113,6 @@ def h2(state):
 
 def h3(state):
     # makes an estimation of the number of pieces that need to be placed to end the game
-    # ----------------------
-    # NÃO SEI SE ESTÁ CERTO
-    # ----------------------
     estimate = 0
 
     for i in range(len(state.board)):
@@ -168,16 +165,15 @@ def a_star_search(problem, heuristic):
     return greedy_search(problem, lambda state: heuristic(state) + len(state.move_history))
 
 
-def weighted_a_star_search(problem, heuristic):
-    # TODO
-    return None
+def weighted_a_star_search(problem, W, heuristic):
+    return greedy_search(problem, lambda state: W*heuristic(state) + len(state.move_history))
 
 # -------------------------------------------------
 # SEARCH ALGORITHMS TEST
 # -------------------------------------------------
 
 # ------------------------------
-# NOTE : working for easy_games
+# NOTE : easy_games
 # ------------------------------
 # Test BFS
 start_time = time.time()
@@ -188,7 +184,7 @@ solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : not working (maybe it's suposed to not work?)
+# NOTE : not working
 # ------------------------------
 # Test DFS
 # start_time = time.time()
@@ -199,7 +195,7 @@ print("TIME: " + str(finish_time-start_time))
 # print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : working for easy_games
+# NOTE : easy_games
 # ------------------------------
 # Test iterative deepening
 start_time = time.time()
@@ -210,7 +206,7 @@ solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : working for normal_difficulty_games
+# NOTE : normal_difficulty_games
 # ------------------------------
 # Test Greedy Search with h1
 start_time = time.time()
@@ -221,7 +217,7 @@ solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : working for some hard_games
+# NOTE : hard_games (just the 4th one)
 # ------------------------------
 # Test Greedy Search with h2
 start_time = time.time()
@@ -231,6 +227,9 @@ print("Greedy h2 --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
+# ------------------------------
+# NOTE : normal_difficulty_games (just the first one)
+# ------------------------------
 # Test Greedy Search with h3
 start_time = time.time()
 solution = greedy_search(normal_difficulty_games()[0], h3)
@@ -240,12 +239,24 @@ solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : 
+# NOTE : easy_games (não funciona para outros porque as nossas heuristicas sobrestimam a solução)
 # ------------------------------
 # Test A* Search
 start_time = time.time()
 solution = a_star_search(easy_games()[0], h3)
 finish_time = time.time()
 print("A* --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : normal_difficulty_games
+# TODO experimentar diferentes weigths e heuristicas
+# ------------------------------
+# Test A* Search
+start_time = time.time()
+solution = weighted_a_star_search(normal_difficulty_games()[1], 4, h3)
+finish_time = time.time()
+print("Weighted A* --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
