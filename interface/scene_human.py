@@ -39,6 +39,8 @@ class SceneHuman(Scene):
                       [0, 1, 1, 0, 3],
                       [0, 0, 2, 0, 0]]
 
+        self.piece = 0
+
         # Set up the font
         self.font = pygame.font.SysFont('Arial', 34)
         self.title_font = pygame.font.SysFont('Arial', 70)
@@ -60,6 +62,18 @@ class SceneHuman(Scene):
 
         self.human_text_rect = (53, 40)
  
+    def select_piece(self, key):
+        if key == 1:
+            self.piece = 1
+        elif key == 2:
+            self.piece = 2
+        elif key == 3:
+            self.piece = 3
+        else:
+            return False
+        print(str(key))
+        return True
+
     def on_update(self):
         pass
 
@@ -87,47 +101,35 @@ class SceneHuman(Scene):
                     pygame.draw.polygon(screen, BLUE, ((270+10+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+90+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+50+CELL_SIZE*j,100+80+CELL_SIZE*i)))
                     pygame.draw.rect(screen, GRAY, rect, 2)
 
-    def place_piece(self, row, col):
-        if self.board[row][col] != 0:
-            return False
-        
-        while True:
-            # Draw the menu
-            menu_font = pygame.font.SysFont(None, 30)
-            text1 = menu_font.render("Choose a piece to place:", True, BLACK)
-            text2 = menu_font.render("1 - Square", True, BLACK)
-            text3 = menu_font.render("2 - Circle", True, BLACK)
-            text4 = menu_font.render("3 - Triangle", True, BLACK)
-            menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width())
-            menu_height = text1.get_height() * 5
-            menu_surf = pygame.Surface((menu_width, menu_height))
-            menu_surf.fill(WHITE)
-            menu_rect = menu_surf.get_rect()
-            menu_rect.center = (WIDTH // 2, HEIGHT // 2)
-            menu_surf.blit(text1, (menu_width // 2 - text1.get_width() // 2, 0))
-            menu_surf.blit(text2, (menu_width // 2 - text2.get_width() // 2, text1.get_height()))
-            menu_surf.blit(text3, (menu_width // 2 - text3.get_width() // 2, text1.get_height() * 2))
-            menu_surf.blit(text4, (menu_width // 2 - text4.get_width() // 2, text1.get_height() * 3))
-            self.screen.blit(menu_surf, menu_rect)
-            pygame.display.flip()
 
-            # Wait for a menu choice
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        self.tmr.stop()
-                        pygame.quit()
-                        return
-                    elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_1:
-                            self.board[row][col] = 1
-                            return True
-                        elif event.key == pygame.K_2:
-                            self.board[row][col] = 2
-                            return True
-                        elif event.key == pygame.K_3:
-                            self.board[row][col] = 3
-                            return True
+    def place_piece(self, row, col):
+        self.board[row][col] = self.piece
+        return True
+
+    def dj_piece(self):
+        # Draw the menu
+        menu_font = pygame.font.SysFont(None, 30)
+        colors = [BLACK, BLACK, BLACK]
+        if self.piece != 0:
+            for i in range(3):
+                colors[i] = BLACK
+                if i == self.piece-1:
+                    colors[i] = RED
+        text1 = menu_font.render("Choose a piece:", True, BLACK)
+        text2 = menu_font.render("1 - Square", True, colors[0])
+        text3 = menu_font.render("2 - Circle", True, colors[1])
+        text4 = menu_font.render("3 - Triangle", True, colors[2])
+        menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width())
+        menu_height = text1.get_height() * 5
+        menu_surf = pygame.Surface((menu_width, menu_height))
+        menu_surf.fill(WHITE)
+        menu_rect = menu_surf.get_rect()
+        menu_rect.center = (WIDTH + 385, HEIGHT-300)
+        menu_surf.blit(text1, (menu_width // 2 - text1.get_width() // 2, 0))
+        menu_surf.blit(text2, (menu_width // 2 - text2.get_width() // 2, text1.get_height()))
+        menu_surf.blit(text3, (menu_width // 2 - text3.get_width() // 2, text1.get_height() * 2))
+        menu_surf.blit(text4, (menu_width // 2 - text4.get_width() // 2, text1.get_height() * 3))
+        self.screen.blit(menu_surf, menu_rect)
 
 
     def on_event(self, event):
@@ -135,6 +137,13 @@ class SceneHuman(Scene):
             if event.key == pygame.K_BACKSPACE:
                 self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_1:
+                self.select_piece(1)
+            if event.key == pygame.K_2:
+                self.select_piece(2)
+            if event.key == pygame.K_3:
+                self.select_piece(3)
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
             if x >= 270 and x < 770 and y >= 100 and y < 600:
@@ -143,7 +152,7 @@ class SceneHuman(Scene):
                 i = (y // CELL_SIZE)
                 j = (x // CELL_SIZE)
                 if i < BOARD_SIZE and j < BOARD_SIZE and self.board[i][j] == 0:
-                    self.place_piece(i, j)
+                    self.board[i][j] = self.piece
         return self
  
     def on_draw(self, screen):
@@ -161,3 +170,4 @@ class SceneHuman(Scene):
         screen.blit(self.font.render(self.time, True, (0, 0, 0)), (30, 100))
 
         self.draw_board(screen)
+        self.dj_piece()
