@@ -92,7 +92,9 @@ def h1(state):
     return total / 2
 
 def h2(state):
-    cost = 0
+    # assigns a score to each row and column based on how close it is to being a palindrome
+    # higher score less close to being a palindrome
+    score = 0
 
     for i in range(len(state.board)):
         row = state.board[i]
@@ -102,12 +104,32 @@ def h2(state):
         col = state.remove_zeros(col)
 
         for i in range(len(row) // 2):
-            if row[i] != row[-i-1]: cost += 1
+            if row[i] != row[-i-1]: score += 1
 
         for i in range(len(col) // 2):
-            if col[i] != col[-i-1]: cost += 1
+            if col[i] != col[-i-1]: score += 1
 
-    return cost / 2
+    return score / 2
+
+def h3(state):
+    # makes an estimation of the number of pieces that need to be placed to end the game
+    # ----------------------
+    # NÃO SEI SE ESTÁ CERTO
+    # ----------------------
+    estimate = 0
+
+    for i in range(len(state.board)):
+        row = state.board[i]
+        col = state.get_col(i)
+
+        if not (state.row_palindrome(i)):
+            row = state.remove_zeros(row)
+            estimate += len(set(row) & set(row[::-1]))
+        
+        if not (state.col_palindrome(i)):
+            col = state.remove_zeros(col)
+            estimate += len(set(col) & set(col[::-1]))
+    return estimate / 2
 
 def greedy_search(problem, heuristic):
     # problem (GameState) - the initial state
@@ -190,7 +212,7 @@ print("TIME: " + str(finish_time-start_time))
 # ------------------------------
 # NOTE : working for normal_difficulty_games
 # ------------------------------
-# Test Greedy Search
+# Test Greedy Search with h1
 start_time = time.time()
 solution = greedy_search(normal_difficulty_games()[0], h1)
 finish_time = time.time()
@@ -198,10 +220,10 @@ print("Greedy --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# Teste Greedy Search with h2
 # ------------------------------
 # NOTE : working for some hard_games
 # ------------------------------
+# Test Greedy Search with h2
 start_time = time.time()
 solution = greedy_search(hard_games()[4], h2)
 finish_time = time.time()
@@ -209,13 +231,21 @@ print("Greedy --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
+# Test Greedy Search with h3
+start_time = time.time()
+solution = greedy_search(normal_difficulty_games()[0], h3)
+finish_time = time.time()
+print("Greedy --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
 # ------------------------------
-# NOTE : tem de se mudar o custo não sei é para o que
+# NOTE : 
 # ------------------------------
 # Test A* Search
-# start_time = time.time()
-# solution = a_star_search(normal_difficulty_games()[0], h1)
-# finish_time = time.time()
-# print("A* --------------------")
-# solution.print_move_history()
-# print("TIME: " + str(finish_time-start_time))
+start_time = time.time()
+solution = a_star_search(easy_games()[0], h3)
+finish_time = time.time()
+print("A* --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
