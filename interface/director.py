@@ -26,15 +26,15 @@ class Director:
  
             # Exit events
             for event in pygame.event.get():
-                self.scene.on_event(event)
+                self.scene = self.scene.on_event(event)
                 if event.type == pygame.QUIT:
+                    if self.scene.cancel_thread():
+                        print("canceled")
+                        self.quit()
                     self.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.quit()
- 
-            # Detect events
-            
  
             # Update scene
             self.scene.on_update()
