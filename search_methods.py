@@ -71,10 +71,8 @@ def iterative_deepening(problem):
     return None
 
 def uniform_cost(problem):
-    # TODO
-    # Acho que é igual à bsf se o custo for 1
-    return None
-
+    # Uniform Cost Search is equal to Breadth first Search 
+    return breadth_first_search(problem)
 
 # -------------------------------------------------
 # Heuristic Search Methods
