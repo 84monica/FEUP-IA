@@ -1,6 +1,6 @@
 import time
 import heapq
-from game_state import GameState, games
+from game_state import GameState, easy_games, normal_difficulty_games, hard_games, very_hard_games
 
 
 # -------------------------------------------------
@@ -71,10 +71,8 @@ def iterative_deepening(problem):
     return None
 
 def uniform_cost(problem):
-    # TODO
-    # Acho que é igual à bsf se o custo for 1
-    return None
-
+    # Uniform Cost Search is equal to Breadth first Search 
+    return breadth_first_search(problem)
 
 # -------------------------------------------------
 # Heuristic Search Methods
@@ -85,26 +83,63 @@ def h1(state):
     # number of rows and columns that aren’t palindromes / 2
     total = 0
     for i in range(len(state.board)):
-            if not (state.row_palindrome(i)):
-                total += 1
-            if not (state.col_palindrome(i)):
-                total += 1
+        if not (state.row_palindrome(i)):
+            total += 1
+        if not (state.col_palindrome(i)):
+            total += 1
     return total / 2
+
+def h2(state):
+    # assigns a score to each row and column based on how close it is to being a palindrome
+    # higher score less close to being a palindrome
+    score = 0
+
+    for i in range(len(state.board)):
+        row = state.board[i]
+        col = state.get_col(i)
+
+        row = state.remove_zeros(row)
+        col = state.remove_zeros(col)
+
+        for i in range(len(row) // 2):
+            if row[i] != row[-i-1]: score += 1
+
+        for i in range(len(col) // 2):
+            if col[i] != col[-i-1]: score += 1
+
+    return score / 2
+
+def h3(state):
+    # makes an estimation of the number of pieces that need to be placed to end the game
+    estimate = 0
+
+    for i in range(len(state.board)):
+        row = state.board[i]
+        col = state.get_col(i)
+
+        if not (state.row_palindrome(i)):
+            row = state.remove_zeros(row)
+            estimate += len(set(row) & set(row[::-1]))
+        
+        if not (state.col_palindrome(i)):
+            col = state.remove_zeros(col)
+            estimate += len(set(col) & set(col[::-1]))
+    return estimate / 2
 
 def greedy_search(problem, heuristic):
     # problem (GameState) - the initial state
     # heuristic (function) - the heuristic function that takes a board (matrix), and returns an integer
     setattr(GameState, "__lt__", lambda self, other: heuristic(self) < heuristic(other))
-    states = [problem]
+    states = [(problem, heuristic(problem))]
     visited = set() # to not visit the same state twice
-    
 
     while states:
         # heapq.heappop(states) can be used to POP a state from the state list
         # heapq.heappush(states, new_state) can be used to APPEND a new state to the state list
         
         # state heap
-        state = heapq.heappop(states)
+        state, _ = heapq.heappop(states)
+        
         # add to visited
         visited.add(state)
 
@@ -112,17 +147,12 @@ def greedy_search(problem, heuristic):
         if state.is_palindrome():
             return state
 
-        # get list of possible states ordered by heuristic
-        ordered_states = []
+        # get possible states
         for child in state.children():
             if child not in visited:
-                heapq.heappush(ordered_states, (heuristic(child), child))
-        ordered_states.sort()
+                heapq.heappush(states, (child, heuristic(child)))
 
-        # push ordered states into heap
-        for state in ordered_states:
-            heapq.heappush(states, state[1]) 
-    
+        states.sort()
     return None
 
 def a_star_search(problem, heuristic):
@@ -133,65 +163,98 @@ def a_star_search(problem, heuristic):
     return greedy_search(problem, lambda state: heuristic(state) + len(state.move_history))
 
 
-def weighted_a_star_search(problem, heuristic):
-    # TODO
-    return None
+def weighted_a_star_search(problem, W, heuristic):
+    return greedy_search(problem, lambda state: W*heuristic(state) + len(state.move_history))
 
 # -------------------------------------------------
 # SEARCH ALGORITHMS TEST
 # -------------------------------------------------
 
 # ------------------------------
-# NOTE : working better now but for easier puzzles
+# NOTE : easy_games
 # ------------------------------
 # Test BFS
 start_time = time.time()
-solution = breadth_first_search(games()[6])
+solution = breadth_first_search(easy_games()[0])
 finish_time = time.time()
 print("BFS --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : not working (maybe it's suposed to not work?)
+# NOTE : not working
 # ------------------------------
 # Test DFS
 # start_time = time.time()
-# solution = depth_first_search(games()[6])
+# solution = depth_first_search(easy_games()[0])
 # finish_time = time.time()
 # print("DFS --------------------")
 # solution.print_move_history()
 # print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : not working (maybe it's suposed to not work?)
+# NOTE : easy_games
 # ------------------------------
 # Test iterative deepening
 start_time = time.time()
-solution = iterative_deepening(games()[6])
+solution = iterative_deepening(easy_games()[0])
 finish_time = time.time()
 print("Iterative Deepening --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : doesn't work well for game, game3 and game4
+# NOTE : normal_difficulty_games
 # ------------------------------
-# Test Greedy Search
+# Test Greedy Search with h1
 start_time = time.time()
-solution = greedy_search(games()[6], h1)
+solution = greedy_search(normal_difficulty_games()[0], h1)
 finish_time = time.time()
-print("Greedy --------------------")
+print("Greedy h1 --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
 # ------------------------------
-# NOTE : tem de se mudar o custo não sei é para o que
+# NOTE : hard_games (just the 4th one)
+# ------------------------------
+# Test Greedy Search with h2
+start_time = time.time()
+solution = greedy_search(hard_games()[4], h2)
+finish_time = time.time()
+print("Greedy h2 --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : normal_difficulty_games (just the first one)
+# ------------------------------
+# Test Greedy Search with h3
+start_time = time.time()
+solution = greedy_search(normal_difficulty_games()[0], h3)
+finish_time = time.time()
+print("Greedy h3 --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : easy_games (não funciona para outros porque as nossas heuristicas sobrestimam a solução)
 # ------------------------------
 # Test A* Search
 start_time = time.time()
-solution = a_star_search(games()[6], h1)
+solution = a_star_search(easy_games()[0], h3)
 finish_time = time.time()
 print("A* --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# ------------------------------
+# NOTE : normal_difficulty_games
+# TODO experimentar diferentes weigths e heuristicas
+# ------------------------------
+# Test A* Search
+start_time = time.time()
+solution = weighted_a_star_search(normal_difficulty_games()[1], 4, h3)
+finish_time = time.time()
+print("Weighted A* --------------------")
 solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))

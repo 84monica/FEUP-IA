@@ -24,9 +24,12 @@ class GameState:
         for row in range(len(self.board)):
             for col in range(len(self.board[row])):
                 for shape in range(1, 4):
-                    state = self.put_shape([row, col], shape)
+                    state, has_priority = self.put_shape([row, col], shape)
                     if state != None:
-                        states.append(state)
+                        if has_priority:
+                            states.insert(0, state)
+                        else:
+                            states.append(state)
         return states
 
     def check_put_shape(self, position, shape):
@@ -36,25 +39,33 @@ class GameState:
 
         # there is an empty space
         if (self.board[row][col] != 0):
-            return False
+            return False, False
 
         # checks if piece type is already present on row or col
-        piece_is_present = False
+        piece_is_present_row = False
+        piece_is_present_col = False
+
         for piece in self.board[row]: 
             if piece == shape:
-                piece_is_present = True
+                piece_is_present_row = True
         
         for piece in self.get_col(col):
             if piece == shape:
-                piece_is_present = True
+                piece_is_present_col = True
         
-        if not piece_is_present:
-            return False
+        # if piece is not present on either row or col then return nothing
+        if not (piece_is_present_row or piece_is_present_col):
+            return False, False
+        
+        # if piece is present on row and col then priority is high
+        has_priority = False
+        if not (piece_is_present_row and piece_is_present_col):
+            has_priority = True
 
         # check if row and col are already palindromes
         if (self.row_palindrome(row) and self.col_palindrome(col)):
-            return False
-        return True
+            return False, False
+        return True, has_priority
 
     def put_shape(self, position, shape):
         # function that performs a move given the row and column number and returns the new state
@@ -62,14 +73,15 @@ class GameState:
         state = GameState(self.board, self.move_history)
 
         # checks if put shape is possible
-        if not self.check_put_shape(position, shape):
-            return None
+        can_put_shape, has_priority = self.check_put_shape(position, shape)
+        if not can_put_shape:
+            return None, None
 
         # updates board
         row, col = position[0], position[1]
         state.board[row][col] = shape
 
-        return state
+        return state, has_priority
 
     def get_col(self, col_idx):
         # function that gets col given col index
@@ -171,22 +183,107 @@ game5 = GameState([[1, 1, 0, 0, 0],
                   [3, 0, 3, 3, 0],
                   [0, 0, 0, 0, 0]])
 
-easy_game = GameState([[0, 0, 0, 1, 2], 
+game6 = GameState([[3, 0, 0, 0, 0], 
+                  [0, 1, 1, 0, 2], 
+                  [0, 3, 0, 0, 3],
+                  [0, 0, 3, 0, 3],
+                  [0, 2, 0, 2, 0]])
+
+game7 = GameState([[0, 1, 0, 2, 0], 
+                  [1, 3, 0, 3, 0], 
+                  [1, 0, 1, 3, 0],
+                  [0, 3, 0, 0, 0],
+                  [0, 0, 3, 0, 0]])
+
+game8 = GameState([[0, 0, 0, 2, 0], 
+                  [3, 0, 3, 2, 0], 
+                  [0, 0, 3, 1, 2],
+                  [0, 1, 0, 0, 0],
+                  [0, 0, 2, 0, 0]])
+
+game9 = GameState([[0, 0, 0, 1, 2], 
                     [0, 0, 0, 2, 0], 
                     [3, 3, 3, 0, 3],
                     [3, 0, 1, 1, 3],
                     [2, 0, 2, 0, 2]])
 
+game10 = GameState([[3, 0, 0, 2, 3], 
+                  [1, 0, 2, 1, 0], 
+                  [1, 1, 1, 1, 0],
+                  [3, 2, 0, 2, 3],
+                  [0, 0, 3, 0, 3]])
 
-def games():
+game11 = GameState([[0, 0, 1, 0, 0, 0],
+                    [0, 1, 0, 1, 0, 3],
+                    [2, 0, 1, 2, 2, 0],
+                    [3, 0, 3, 3, 0, 0],
+                    [0, 0, 0, 0, 0, 0],
+                    [1, 0, 0, 0, 3, 0]])
+
+game12 = GameState([[3, 0, 0, 0, 0, 3],
+                    [0, 2, 1, 1, 0, 3],
+                    [0, 1, 0, 0, 3, 0],
+                    [2, 0, 2, 2, 0, 0],
+                    [0, 3, 0, 0, 0, 0],
+                    [0, 0, 3, 3, 0, 0]])
+
+game13 = GameState([[0, 0, 2, 0, 0, 0],
+                    [0, 1, 0, 1, 3, 0],
+                    [3, 0, 0, 0, 2, 0],
+                    [0, 1, 3, 0, 2, 0],
+                    [0, 0, 1, 2, 0, 3],
+                    [0, 0, 0, 1, 0, 0]])
+
+game14 = GameState([[0, 2, 3, 2, 3], 
+                  [1, 0, 2, 0, 0], 
+                  [1, 1, 1, 1, 0],
+                  [3, 2, 0, 2, 3],
+                  [0, 0, 3, 0, 3]])
+
+game15 = GameState([[2, 1, 0, 2, 0], 
+                  [1, 3, 0, 3, 0], 
+                  [1, 0, 1, 3, 0],
+                  [0, 3, 0, 0, 0],
+                  [0, 0, 3, 0, 1]])
+
+game16 = GameState([[0, 1, 0, 0, 2], 
+                  [3, 2, 0, 0, 0], 
+                  [0, 2, 1, 0, 3],
+                  [2, 0, 3, 1, 0],
+                  [0, 0, 0, 2, 0]])
+
+
+def easy_games():
+    return (
+        game9,
+        game10,
+        game14
+    )
+
+def normal_difficulty_games():
+    return (
+        game6,
+        game1,
+        game15,
+        game16
+    )
+
+def hard_games():
     return (
         game,
-        game1,
-        game2,
         game3,
         game4,
-        game5,
-        easy_game
+        game7,
+        game8,
+        game2,
+        game5
+    )
+
+def very_hard_games():
+    return (
+        game11,
+        game12,
+        game13
     )
 
 # -------------------------------------------------
