@@ -85,11 +85,29 @@ def h1(state):
     # number of rows and columns that aren’t palindromes / 2
     total = 0
     for i in range(len(state.board)):
-            if not (state.row_palindrome(i)):
-                total += 1
-            if not (state.col_palindrome(i)):
-                total += 1
+        if not (state.row_palindrome(i)):
+            total += 1
+        if not (state.col_palindrome(i)):
+            total += 1
     return total / 2
+
+def h2(state):
+    cost = 0
+
+    for i in range(len(state.board)):
+        row = state.board[i]
+        col = state.get_col(i)
+
+        row = state.remove_zeros(row)
+        col = state.remove_zeros(col)
+
+        for i in range(len(row) // 2):
+            if row[i] != row[-i-1]: cost += 1
+
+        for i in range(len(col) // 2):
+            if col[i] != col[-i-1]: cost += 1
+
+    return cost / 2
 
 def greedy_search(problem, heuristic):
     # problem (GameState) - the initial state
@@ -103,7 +121,7 @@ def greedy_search(problem, heuristic):
         # heapq.heappush(states, new_state) can be used to APPEND a new state to the state list
         
         # state heap
-        state = heapq.heappop(states)[0]
+        state, _ = heapq.heappop(states)
         
         # add to visited
         visited.add(state)
@@ -175,6 +193,17 @@ print("TIME: " + str(finish_time-start_time))
 # Test Greedy Search
 start_time = time.time()
 solution = greedy_search(normal_difficulty_games()[0], h1)
+finish_time = time.time()
+print("Greedy --------------------")
+solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# Teste Greedy Search with h2
+# ------------------------------
+# NOTE : working for some hard_games
+# ------------------------------
+start_time = time.time()
+solution = greedy_search(hard_games()[4], h2)
 finish_time = time.time()
 print("Greedy --------------------")
 solution.print_move_history()
