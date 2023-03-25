@@ -170,91 +170,84 @@ def weighted_a_star_search(problem, W, heuristic):
 # SEARCH ALGORITHMS TEST
 # -------------------------------------------------
 
-# ------------------------------
-# NOTE : easy_games
-# ------------------------------
 # Test BFS
+# easy_games
 start_time = time.time()
 solution = breadth_first_search(easy_games()[0])
 finish_time = time.time()
 print("BFS --------------------")
-solution.print_move_history()
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : not working
-# ------------------------------
-# Test DFS
-# start_time = time.time()
-# solution = depth_first_search(easy_games()[0])
-# finish_time = time.time()
-# print("DFS --------------------")
-# solution.print_move_history()
-# print("TIME: " + str(finish_time-start_time))
-
-# ------------------------------
-# NOTE : easy_games
-# ------------------------------
 # Test iterative deepening
+# easy_games
 start_time = time.time()
 solution = iterative_deepening(easy_games()[0])
 finish_time = time.time()
 print("Iterative Deepening --------------------")
-solution.print_move_history()
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : normal_difficulty_games
-# ------------------------------
 # Test Greedy Search with h1
+# normal_difficulty_games
 start_time = time.time()
 solution = greedy_search(normal_difficulty_games()[0], h1)
 finish_time = time.time()
 print("Greedy h1 --------------------")
-solution.print_move_history()
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : hard_games (just the 4th one)
-# ------------------------------
 # Test Greedy Search with h2
+# hard_games (just the 4th one)
 start_time = time.time()
 solution = greedy_search(hard_games()[4], h2)
 finish_time = time.time()
 print("Greedy h2 --------------------")
-solution.print_move_history()
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : normal_difficulty_games (just the first one)
-# ------------------------------
 # Test Greedy Search with h3
+# normal_difficulty_games (0, 2, 3)
 start_time = time.time()
 solution = greedy_search(normal_difficulty_games()[0], h3)
 finish_time = time.time()
 print("Greedy h3 --------------------")
-solution.print_move_history()
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : easy_games (não funciona para outros porque as nossas heuristicas sobrestimam a solução)
-# ------------------------------
 # Test A* Search
+# normal_difficulty_games (2, 3)
 start_time = time.time()
-solution = a_star_search(easy_games()[0], h3)
+solution = a_star_search(normal_difficulty_games()[2], h3)
 finish_time = time.time()
-print("A* --------------------")
-solution.print_move_history()
+print("A* h3 --------------------")
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 
-# ------------------------------
-# NOTE : normal_difficulty_games
-# TODO experimentar diferentes weigths e heuristicas
-# ------------------------------
-# Test A* Search
+# Test weighted A* Search
+# normal_difficulty_games
+normal_difficulty_games
 start_time = time.time()
-solution = weighted_a_star_search(normal_difficulty_games()[1], 4, h3)
+solution = weighted_a_star_search(normal_difficulty_games()[0], 8, h1)
 finish_time = time.time()
-print("Weighted A* --------------------")
-solution.print_move_history()
+print("Weighted A* h1 --------------------")
+# solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# Test weighted A* Search
+# normal_difficulty_games
+start_time = time.time()
+solution = weighted_a_star_search(normal_difficulty_games()[0], 8, h2)
+finish_time = time.time()
+print("Weighted A* h2 --------------------")
+# solution.print_move_history()
+print("TIME: " + str(finish_time-start_time))
+
+# Test weighted A* Search
+# hard_games (1, 2, 4, 5)
+start_time = time.time()
+solution = weighted_a_star_search(hard_games()[1], 8, h3)
+finish_time = time.time()
+print("Weighted A* h3 --------------------")
+# solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
