@@ -15,8 +15,8 @@ import scene_human
  
 def main():
     dir = director.Director()
-    # scene = scene_home.SceneHome(dir)
-    scene = scene_human.SceneHuman(dir)
+    scene = scene_home.SceneHome(dir)
+    #scene = scene_human.SceneHuman(dir)
     dir.change_scene(scene)
     dir.loop()
  

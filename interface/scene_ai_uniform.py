@@ -5,6 +5,7 @@ import sys
 sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
 
 import scene_ai_heuristic
+import scene_home
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -95,6 +96,9 @@ class SceneAiUniform(Scene):
         pass
  
     def on_event(self, event):
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+            if event.key == pygame.K_BACKSPACE:
+                return scene_home.SceneHome(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(20, 480, 300, 40).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)

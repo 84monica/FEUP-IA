@@ -133,6 +133,7 @@ class SceneHuman(Scene):
     def on_event(self, event):
         if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
             if event.key == pygame.K_BACKSPACE:
+                self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos

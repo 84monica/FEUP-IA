@@ -40,6 +40,9 @@ class SceneHome(Scene):
         self.first_title_text_rect = (300, 140)
         self.second_title_text_rect = (350, 210)
  
+    def cancel_thread(self):
+        pass
+
     def on_update(self):
         pass
  
