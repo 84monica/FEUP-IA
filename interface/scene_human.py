@@ -69,6 +69,8 @@ class SceneHuman(Scene):
             self.piece = 2
         elif key == 3:
             self.piece = 3
+        elif key == 0:
+            self.piece = 0
         else:
             return False
         print(str(key))
@@ -109,16 +111,16 @@ class SceneHuman(Scene):
     def dj_piece(self):
         # Draw the menu
         menu_font = pygame.font.SysFont(None, 30)
-        colors = [BLACK, BLACK, BLACK]
-        if self.piece != 0:
-            for i in range(3):
-                colors[i] = BLACK
-                if i == self.piece-1:
-                    colors[i] = RED
+        colors = [BLACK, BLACK, BLACK, BLACK]
+        for i in range(4):
+            colors[i] = BLACK
+            if i == self.piece:
+                colors[i] = RED
         text1 = menu_font.render("Choose a piece:", True, BLACK)
-        text2 = menu_font.render("1 - Square", True, colors[0])
-        text3 = menu_font.render("2 - Circle", True, colors[1])
-        text4 = menu_font.render("3 - Triangle", True, colors[2])
+        text2 = menu_font.render("1 - Square", True, colors[1])
+        text3 = menu_font.render("2 - Circle", True, colors[2])
+        text4 = menu_font.render("3 - Triangle", True, colors[3])
+        text5 = menu_font.render("0 - Erase", True, colors[0])
         menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width())
         menu_height = text1.get_height() * 5
         menu_surf = pygame.Surface((menu_width, menu_height))
@@ -129,6 +131,7 @@ class SceneHuman(Scene):
         menu_surf.blit(text2, (menu_width // 2 - text2.get_width() // 2, text1.get_height()))
         menu_surf.blit(text3, (menu_width // 2 - text3.get_width() // 2, text1.get_height() * 2))
         menu_surf.blit(text4, (menu_width // 2 - text4.get_width() // 2, text1.get_height() * 3))
+        menu_surf.blit(text5, (menu_width // 2 - text5.get_width() // 2, text1.get_height() * 4))
         self.screen.blit(menu_surf, menu_rect)
 
 
@@ -144,6 +147,8 @@ class SceneHuman(Scene):
                 self.select_piece(2)
             if event.key == pygame.K_3:
                 self.select_piece(3)
+            if event.key == pygame.K_0:
+                self.select_piece(0)
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
             if x >= 270 and x < 770 and y >= 100 and y < 600:
@@ -151,7 +156,7 @@ class SceneHuman(Scene):
                 y = y - 100
                 i = (y // CELL_SIZE)
                 j = (x // CELL_SIZE)
-                if i < BOARD_SIZE and j < BOARD_SIZE and self.board[i][j] == 0:
+                if i < BOARD_SIZE and j < BOARD_SIZE and (self.board[i][j] == 0 or self.piece == 0):
                     self.board[i][j] = self.piece
         return self
  
