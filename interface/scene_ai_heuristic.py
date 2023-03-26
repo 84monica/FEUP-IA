@@ -96,7 +96,7 @@ class SceneAiHeuristic(Scene):
         pass
  
     def on_event(self, event):
-        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
                 return scene_home.SceneHome(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:

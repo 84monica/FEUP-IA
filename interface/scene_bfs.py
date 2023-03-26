@@ -1,12 +1,11 @@
 import pygame
 from scene import Scene
 import sys
+import search_methods
 
 sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
 
-import scene_ai_heuristic
-import scene_home
-import scene_bfs
+import scene_ai_uniform
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -14,7 +13,7 @@ def draw_rectangle(x, y, screen, color):
 def draw_triangle(x, y, screen, color):
     pygame.draw.polygon(screen, color, [[100/2 + x, 100/2 + y], [x, 250/2 + y], [200/2 + x, 250/2 + y]])
 
-class SceneAiUniform(Scene):
+class SceneBFS(Scene):
     """ Welcome screen of the game, the first one to be loaded."""
  
     def __init__(self, director):
@@ -38,26 +37,26 @@ class SceneAiUniform(Scene):
         self.blue = (60, 204, 247) # division
 
         # Define the texts
-        self.ai_text = self.font.render('AI', True, self.white)
+        self.ai_text = self.font.render('Breath First Search', True, self.white)
         self.first_title_text = self.title_font.render('SYMMETRIC', True, self.white)
         self.second_title_text = self.title_font.render('PUZZLES', True, self.white)
 
-        self.uniform_text = self.small_font.render('Uniform Search Methods', True, self.white)
+        self.uniform_text = self.small_font.render('Choose a difficulty:', True, self.white)
         self.heuristic_text = self.small_font.render('Heuristic Search Methods', True, self.white)
 
         self.uniform_title_text = self.font.render('Uniform Search Methods', True, self.bg)
 
-        self.bfs_text_one = self.small_font.render('Breath', True, self.white)
+        self.bfs_text_one = self.small_font.render('Easy', True, self.white)
         self.bfs_text_two = self.small_font.render('First Search', True, self.white)
 
-        self.dfs_text_one = self.small_font.render('Depth', True, self.white)
+        self.dfs_text_one = self.small_font.render('Normal', True, self.white)
         self.dfs_text_two = self.small_font.render('First Search', True, self.white)
 
-        self.id_text_one = self.small_font.render('Iterative', True, self.white)
+        self.id_text_one = self.small_font.render('Hard', True, self.white)
         self.id_text_two = self.small_font.render('Deepening', True, self.white)
 
-        self.uc_text_one = self.small_font.render('Uniform', True, self.white)
-        self.uc_text_two = self.small_font.render('Cost', True, self.white)
+        self.uc_text_one = self.small_font.render('Very', True, self.white)
+        self.uc_text_two = self.small_font.render('Hard', True, self.white)
 
         # Get the dimensions of the text
         self.ai_text_rect = self.ai_text.get_rect()
@@ -66,32 +65,26 @@ class SceneAiUniform(Scene):
         self.heuristic_text_rect = self.heuristic_text.get_rect()
         self.first_title_text_rect = self.first_title_text.get_rect()
         self.second_title_text_rect = self.second_title_text.get_rect()
-        self.ai_text_rect = (50, 350)
-        self.uniform_text_rect = (35, 428)
+        self.ai_text_rect = (40, 350)
+        self.uniform_text_rect = (40, 400)
         self.uniform_title_text_rect = (550, 50)
         self.heuristic_text_rect = (35, 488)
         self.first_title_text_rect = (20, 20)
         self.second_title_text_rect = (70, 90)
 
         self.bfs_text_one_rect = self.bfs_text_one.get_rect()
-        self.bfs_text_one_rect = (560, 240)
-        self.bfs_text_two_rect = self.bfs_text_two.get_rect()
-        self.bfs_text_two_rect = (530, 270)
+        self.bfs_text_one_rect = (570, 255)
 
         self.dfs_text_one_rect = self.dfs_text_one.get_rect()
-        self.dfs_text_one_rect = (815, 340)
-        self.dfs_text_two_rect = self.dfs_text_two.get_rect()
-        self.dfs_text_two_rect = (780, 370)
+        self.dfs_text_one_rect = (807, 355)
 
         self.id_text_one_rect = self.id_text_one.get_rect()
-        self.id_text_one_rect = (505, 520)
-        self.id_text_two_rect = self.id_text_two.get_rect()
-        self.id_text_two_rect = (490, 550)
+        self.id_text_one_rect = (520, 535)
 
         self.uc_text_one_rect = self.uc_text_one.get_rect()
-        self.uc_text_one_rect = (730, 590)
+        self.uc_text_one_rect = (750, 590)
         self.uc_text_two_rect = self.uc_text_two.get_rect()
-        self.uc_text_two_rect = (750, 620)
+        self.uc_text_two_rect = (749, 620)
 
     def cancel_thread(self):
         pass
@@ -102,12 +95,10 @@ class SceneAiUniform(Scene):
     def on_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
-                return scene_home.SceneHome(self.dir)
+                return scene_ai_uniform.SceneAiUniform(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
-            if pygame.Rect(20, 480, 300, 40).collidepoint(event.pos):
-                return scene_ai_heuristic.SceneAiHeuristic(self.dir)
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                return scene_bfs.SceneBFS(self.dir)
+                search_methods.test_bfs()
         return self
  
     def on_draw(self, screen):
@@ -116,26 +107,19 @@ class SceneAiUniform(Scene):
         pygame.draw.polygon(screen, self.gold, self.second_part)
         pygame.draw.polygon(screen, self.blue, self.division_vertices)
 
-        pygame.draw.rect(screen, self.gold, pygame.Rect(20, 420, 300, 40), 20, 20)
-        pygame.draw.rect(screen, self.gold, pygame.Rect(20, 480, 300, 40), 20, 20)
-
         draw_rectangle(520, 150, screen, self.blue)
         draw_rectangle(470, 430, screen, self.blue)
         draw_rectangle(770, 250, screen, self.blue)
         draw_rectangle(700, 500, screen, self.blue)
         screen.blit(self.bfs_text_one, self.bfs_text_one_rect)
-        screen.blit(self.bfs_text_two, self.bfs_text_two_rect)
         screen.blit(self.dfs_text_one, self.dfs_text_one_rect)
-        screen.blit(self.dfs_text_two, self.dfs_text_two_rect)
         screen.blit(self.id_text_one, self.id_text_one_rect)
-        screen.blit(self.id_text_two, self.id_text_two_rect)
         screen.blit(self.uc_text_one, self.uc_text_one_rect)
         screen.blit(self.uc_text_two, self.uc_text_two_rect)
 
         screen.blit(self.ai_text, self.ai_text_rect)
         screen.blit(self.uniform_text, self.uniform_text_rect)
-        screen.blit(self.heuristic_text, self.heuristic_text_rect)
-        screen.blit(self.uniform_title_text, self.uniform_title_text_rect)
+        
         screen.blit(self.first_title_text, self.first_title_text_rect)
         screen.blit(self.second_title_text, self.second_title_text_rect)
 
