@@ -13,7 +13,7 @@ def draw_rectangle(x, y, screen, color):
 def draw_triangle(x, y, screen, color):
     pygame.draw.polygon(screen, color, [[100/2 + x, 100/2 + y], [x, 250/2 + y], [200/2 + x, 250/2 + y]])
 
-class SceneBFS(Scene):
+class SceneIterative(Scene):
     """ Welcome screen of the game, the first one to be loaded."""
  
     def __init__(self, director):
@@ -37,7 +37,7 @@ class SceneBFS(Scene):
         self.blue = (60, 204, 247) # division
 
         # Define the texts
-        self.ai_text = self.font.render('Breath First Search', True, self.white)
+        self.ai_text = self.font.render('Iterative Deepening', True, self.white)
         self.first_title_text = self.title_font.render('SYMMETRIC', True, self.white)
         self.second_title_text = self.title_font.render('PUZZLES', True, self.white)
 
@@ -98,9 +98,9 @@ class SceneBFS(Scene):
                 return scene_ai_uniform.SceneAiUniform(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                search_methods.test_bfs_easy(0)
-                search_methods.test_bfs_easy(1)
-                search_methods.test_bfs_easy(2)
+                search_methods.test_iterative_easy(0)
+                search_methods.test_iterative_easy(1)
+                search_methods.test_iterative_easy(2)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
                 search_methods.test_bfs_medium(0)
                 search_methods.test_bfs_medium(1)

@@ -6,6 +6,9 @@ sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
 
 import scene_ai_uniform
 import scene_home
+import scene_greedy
+import scene_a_star
+import scene_weighted_a_star
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -92,6 +95,9 @@ class SceneAiHeuristic(Scene):
         self.uc_text_two_rect = self.uc_text_two.get_rect()
         self.uc_text_two_rect = (750, 620)
 
+    def cancel_thread(self):
+        pass
+
     def on_update(self):
         pass
  
@@ -102,6 +108,12 @@ class SceneAiHeuristic(Scene):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(20, 420, 300, 40).collidepoint(event.pos):
                 return scene_ai_uniform.SceneAiUniform(self.dir)
+            if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
+                return scene_greedy.SceneGreedy(self.dir)
+            if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
+                return scene_a_star.SceneAStar(self.dir)
+            if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
+                return scene_weighted_a_star.SceneWeightedAStar(self.dir)
         return self
  
     def on_draw(self, screen):

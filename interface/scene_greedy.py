@@ -5,7 +5,7 @@ import search_methods
 
 sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
 
-import scene_ai_uniform
+import scene_ai_heuristic
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -13,7 +13,7 @@ def draw_rectangle(x, y, screen, color):
 def draw_triangle(x, y, screen, color):
     pygame.draw.polygon(screen, color, [[100/2 + x, 100/2 + y], [x, 250/2 + y], [200/2 + x, 250/2 + y]])
 
-class SceneBFS(Scene):
+class SceneGreedy(Scene):
     """ Welcome screen of the game, the first one to be loaded."""
  
     def __init__(self, director):
@@ -37,7 +37,7 @@ class SceneBFS(Scene):
         self.blue = (60, 204, 247) # division
 
         # Define the texts
-        self.ai_text = self.font.render('Breath First Search', True, self.white)
+        self.ai_text = self.font.render('Greedy Search', True, self.white)
         self.first_title_text = self.title_font.render('SYMMETRIC', True, self.white)
         self.second_title_text = self.title_font.render('PUZZLES', True, self.white)
 
@@ -95,25 +95,13 @@ class SceneBFS(Scene):
     def on_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
-                return scene_ai_uniform.SceneAiUniform(self.dir)
+                return scene_ai_heuristic.SceneAiHeuristic(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
-            if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                search_methods.test_bfs_easy(0)
-                search_methods.test_bfs_easy(1)
-                search_methods.test_bfs_easy(2)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                search_methods.test_bfs_medium(0)
-                search_methods.test_bfs_medium(1)
-                search_methods.test_bfs_medium(2)
-                search_methods.test_bfs_medium(3)
+                search_methods.test_greedy_normal(0, search_methods.h1)
+                search_methods.test_greedy_normal(0, search_methods.h3)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
-                search_methods.test_bfs_hard(0)
-                search_methods.test_bfs_hard(1)
-                search_methods.test_bfs_hard(2)
-                search_methods.test_bfs_hard(3)
-                search_methods.test_bfs_hard(4)
-                search_methods.test_bfs_hard(5)
-                search_methods.test_bfs_hard(6)
+                search_methods.test_greedy_hard(4, search_methods.h2)
             if pygame.Rect(700, 500, 150, 150).collidepoint(event.pos):
                 search_methods.test_bfs_very_hard(0)
                 search_methods.test_bfs_very_hard(1)

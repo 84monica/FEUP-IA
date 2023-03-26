@@ -7,6 +7,7 @@ sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
 import scene_ai_heuristic
 import scene_home
 import scene_bfs
+import scene_iterative
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -108,6 +109,8 @@ class SceneAiUniform(Scene):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
                 return scene_bfs.SceneBFS(self.dir)
+            if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
+                return scene_iterative.SceneIterative(self.dir)
         return self
  
     def on_draw(self, screen):
