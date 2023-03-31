@@ -121,17 +121,17 @@ class SceneHuman(Scene):
         text3 = menu_font.render("2 - Circle", True, colors[2])
         text4 = menu_font.render("3 - Triangle", True, colors[3])
         text5 = menu_font.render("0 - Erase", True, colors[0])
-        menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width())
-        menu_height = text1.get_height() * 5
+        menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width()) +10
+        menu_height = text1.get_height() * 5 + 15
         menu_surf = pygame.Surface((menu_width, menu_height))
         menu_surf.fill(WHITE)
         menu_rect = menu_surf.get_rect()
         menu_rect.center = (WIDTH + 385, HEIGHT-300)
-        menu_surf.blit(text1, (menu_width // 2 - text1.get_width() // 2, 0))
-        menu_surf.blit(text2, (menu_width // 2 - text2.get_width() // 2, text1.get_height()))
-        menu_surf.blit(text3, (menu_width // 2 - text3.get_width() // 2, text1.get_height() * 2))
-        menu_surf.blit(text4, (menu_width // 2 - text4.get_width() // 2, text1.get_height() * 3))
-        menu_surf.blit(text5, (menu_width // 2 - text5.get_width() // 2, text1.get_height() * 4))
+        menu_surf.blit(text1, (menu_width // 2 - text1.get_width() // 2, 10))
+        menu_surf.blit(text2, (menu_width // 2 - text2.get_width() // 2, text1.get_height() + 10))
+        menu_surf.blit(text3, (menu_width // 2 - text3.get_width() // 2, text1.get_height() * 2 + 10))
+        menu_surf.blit(text4, (menu_width // 2 - text4.get_width() // 2, text1.get_height() * 3 + 10))
+        menu_surf.blit(text5, (menu_width // 2 - text5.get_width() // 2, text1.get_height() * 4 + 10))
         self.screen.blit(menu_surf, menu_rect)
 
 
