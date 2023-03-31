@@ -5,7 +5,7 @@
 import pygame
 import sys
 
-sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
+sys.path.append('../FEUP-IA/interface')
 
 import director
 import scene_home

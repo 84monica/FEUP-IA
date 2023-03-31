@@ -1,6 +1,6 @@
 import pygame, sys
 from scene import Scene
-sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
+sys.path.append('../FEUP-IA/interface')
 import scene_ai_uniform
 import scene_human
 

@@ -4,7 +4,7 @@ import time
 from scene import Scene
 import sys
 
-sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
+sys.path.append('../FEUP-IA/interface')
 
 import scene_home
 import timer_class

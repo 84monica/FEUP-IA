@@ -3,7 +3,7 @@ from scene import Scene
 import sys
 import search_methods
 
-sys.path.append('/home/joao/Desktop/IA/FEUP-IA/interface')
+sys.path.append('../FEUP-IA/interface')
 
 import scene_ai_uniform
 
