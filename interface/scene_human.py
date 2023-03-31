@@ -61,6 +61,13 @@ class SceneHuman(Scene):
         self.human_text_rect = self.human_text.get_rect()
 
         self.human_text_rect = (53, 40)
+
+        #Define back button
+        self.backButton = pygame.image.load("Images/backward.png")
+
+        #Get dimensions of button
+        self.backButton_rect = self.backButton.get_rect()
+        self.backButton_rect = (900, 590)
  
     def select_piece(self, key):
         if key == 1:
@@ -158,6 +165,9 @@ class SceneHuman(Scene):
                 j = (x // CELL_SIZE)
                 if i < BOARD_SIZE and j < BOARD_SIZE and (self.board[i][j] == 0 or self.piece == 0):
                     self.board[i][j] = self.piece
+            if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
+                print ("back button press") 
+                return scene_home.SceneHome(self.dir)
         return self
  
     def on_draw(self, screen):
@@ -171,6 +181,7 @@ class SceneHuman(Scene):
         pygame.draw.rect(screen, self.gold, pygame.Rect(560, 400, 140, 70), 200, 20)
 
         screen.blit(self.human_text, self.human_text_rect)
+        screen.blit(self.backButton, self.backButton_rect)
         screen.blit(self.font.render(str(self.tmr.get_count()), True, (0, 0, 0)), (120, 100))
         screen.blit(self.font.render(self.time, True, (0, 0, 0)), (30, 100))
 
