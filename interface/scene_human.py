@@ -2,8 +2,10 @@ import pygame, sys
 import threading as th
 import time
 from scene import Scene
-import sys
 
+import sys
+sys.path.append('../')
+from game_state import GameState
 sys.path.append('../FEUP-IA/interface')
 
 import scene_home
@@ -33,11 +35,14 @@ class SceneHuman(Scene):
         self.tmr.start()
 
         self.dir = director
+
         self.board = [[0, 0, 0, 1, 2], 
                       [0, 0, 0, 2, 0], 
                       [3, 3, 3, 0, 3],
                       [0, 1, 1, 0, 3],
                       [0, 0, 2, 0, 0]]
+
+        self.done = False
 
         self.piece = 0
 
@@ -56,11 +61,14 @@ class SceneHuman(Scene):
 
         # Define the texts
         self.human_text = self.font.render('Human', True, self.white)
+        self.won_text = self.font.render('You won!', True, self.white)
 
         # Get the dimensions of the text
         self.human_text_rect = self.human_text.get_rect()
+        self.won_text_rect = self.won_text.get_rect()
 
         self.human_text_rect = (53, 40)
+        self.won_text_rect = (30, 140)
 
         # Define back button
         self.backButton = pygame.image.load("Images/backward.png")
@@ -144,7 +152,7 @@ class SceneHuman(Scene):
 
 
     def on_event(self, event):
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN and not self.done:
             if event.key == pygame.K_1:
                 self.select_piece(1)
             if event.key == pygame.K_2:
@@ -165,6 +173,10 @@ class SceneHuman(Scene):
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
+        self.game = GameState(self.board)
+        if self.game.is_palindrome() and self.done == False:
+            self.cancel_thread()
+            self.done = True
         return self
  
     def on_draw(self, screen):
@@ -179,6 +191,8 @@ class SceneHuman(Scene):
 
         screen.blit(self.human_text, self.human_text_rect)
         screen.blit(self.backButton, self.backButton_rect)
+        if self.done:
+            screen.blit(self.won_text, self.won_text_rect)
         screen.blit(self.font.render(str(self.tmr.get_count()), True, (0, 0, 0)), (120, 100))
         screen.blit(self.font.render(self.time, True, (0, 0, 0)), (30, 100))
 
