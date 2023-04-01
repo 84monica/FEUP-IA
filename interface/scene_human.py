@@ -143,10 +143,6 @@ class SceneHuman(Scene):
 
 
     def on_event(self, event):
-        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
-            if event.key == pygame.K_BACKSPACE:
-                self.cancel_thread()
-                return scene_home.SceneHome(self.dir)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
                 self.select_piece(1)
@@ -166,7 +162,7 @@ class SceneHuman(Scene):
                 if i < BOARD_SIZE and j < BOARD_SIZE and (self.board[i][j] == 0 or self.piece == 0):
                     self.board[i][j] = self.piece
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
-                print ("back button press") 
+                self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
         return self
  
