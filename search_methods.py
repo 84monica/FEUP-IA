@@ -14,12 +14,14 @@ def breadth_first_search(problem):
     queue = [problem]
     visited = set() # to not visit the same state twice
 
+    i = 0
     while queue:
+        i+=1
         state = queue.pop(0)
         visited.add(state)
 
         if state.is_palindrome():
-            return state
+            return state, i
 
         for child in state.children():
             if child not in visited:
@@ -33,12 +35,14 @@ def depth_first_search(problem):
     stack = [problem]
     visited = set() # to not visit the same state twice
 
+    i = 0
     while stack:
+        i+=1
         state = stack.pop(0)
         visited.add(state)
 
         if state.is_palindrome():
-            return state
+            return state, i
 
         for child in state.children():
             if child not in visited:
@@ -49,25 +53,27 @@ def depth_limited_search(problem, depth):
     stack = [(problem, 0)] # start with depth 0
     visited = set() # to not visit the same state twice
 
+    i = 0
     while stack:
         (state, current_depth) = stack.pop(0)
         visited.add(state)
-
+        i+=1
         if state.is_palindrome():
-            return state
+            return state, i
 
         if current_depth < depth:
             for child in state.children():
                 if child not in visited:
                     stack.insert(0,(child, current_depth+1)) # add depth
-    return None
+    return None, i
 
 def iterative_deepening(problem):
     # solves game using iterative deepening
-
+    i = 0
     for depth in range(100):
-        result = depth_limited_search(problem, depth)
-        if result != None: return result
+        result, j = depth_limited_search(problem, depth)
+        i += j
+        if result != None: return result, i
     return None
 
 def uniform_cost(problem):
@@ -133,10 +139,11 @@ def greedy_search(problem, heuristic):
     states = [(problem, heuristic(problem))]
     visited = set() # to not visit the same state twice
 
+    i = 0
     while states:
         # heapq.heappop(states) can be used to POP a state from the state list
         # heapq.heappush(states, new_state) can be used to APPEND a new state to the state list
-        
+        i+=1
         # state heap
         state, _ = heapq.heappop(states)
         
@@ -145,7 +152,7 @@ def greedy_search(problem, heuristic):
 
         # found solution
         if state.is_palindrome():
-            return state
+            return state, i
 
         # get possible states
         for child in state.children():
@@ -173,81 +180,90 @@ def weighted_a_star_search(problem, W, heuristic):
 # Test BFS
 # easy_games
 start_time = time.time()
-solution = breadth_first_search(easy_games()[0])
+solution, steps = breadth_first_search(easy_games()[0])
 finish_time = time.time()
 print("BFS --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test iterative deepening
 # easy_games
 start_time = time.time()
-solution = iterative_deepening(easy_games()[0])
+solution, steps = iterative_deepening(easy_games()[0])
 finish_time = time.time()
 print("Iterative Deepening --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test Greedy Search with h1
 # normal_difficulty_games
 start_time = time.time()
-solution = greedy_search(normal_difficulty_games()[0], h1)
+solution, steps = greedy_search(normal_difficulty_games()[0], h1)
 finish_time = time.time()
 print("Greedy h1 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test Greedy Search with h2
 # hard_games (just the 4th one)
 start_time = time.time()
-solution = greedy_search(hard_games()[4], h2)
+solution, steps = greedy_search(hard_games()[4], h2)
 finish_time = time.time()
 print("Greedy h2 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test Greedy Search with h3
 # normal_difficulty_games (0, 2, 3)
 start_time = time.time()
-solution = greedy_search(normal_difficulty_games()[0], h3)
+solution, steps = greedy_search(normal_difficulty_games()[0], h3)
 finish_time = time.time()
 print("Greedy h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test A* Search
 # normal_difficulty_games (2, 3)
 start_time = time.time()
-solution = a_star_search(normal_difficulty_games()[2], h3)
+solution, steps = a_star_search(normal_difficulty_games()[2], h3)
 finish_time = time.time()
 print("A* h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test weighted A* Search
 # normal_difficulty_games
 normal_difficulty_games
 start_time = time.time()
-solution = weighted_a_star_search(normal_difficulty_games()[0], 8, h1)
+solution, steps = weighted_a_star_search(normal_difficulty_games()[0], 8, h1)
 finish_time = time.time()
 print("Weighted A* h1 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test weighted A* Search
 # normal_difficulty_games
 start_time = time.time()
-solution = weighted_a_star_search(normal_difficulty_games()[0], 8, h2)
+solution, steps = weighted_a_star_search(normal_difficulty_games()[0], 8, h2)
 finish_time = time.time()
 print("Weighted A* h2 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
 
 # Test weighted A* Search
 # hard_games (1, 2, 4, 5)
 start_time = time.time()
-solution = weighted_a_star_search(hard_games()[1], 8, h3)
+solution, steps = weighted_a_star_search(hard_games()[1], 8, h3)
 finish_time = time.time()
 print("Weighted A* h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
+print("STEPS: " + str(steps))
