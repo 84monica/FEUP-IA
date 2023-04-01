@@ -101,13 +101,14 @@ class SceneHuman(Scene):
                 if self.board[i][j] == 0:
                     pygame.draw.rect(screen, GRAY, rect, 2)
                 elif self.board[i][j] == 1:
-                    pygame.draw.rect(screen, GREEN, rect, PIECE_SIZE + 5)
+                    pygame.draw.polygon(screen, BLUE, ((270+10+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+90+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+50+CELL_SIZE*j,100+80+CELL_SIZE*i)))
                     pygame.draw.rect(screen, GRAY, rect, 2)
                 elif self.board[i][j] == 2:
-                    pygame.draw.circle(screen, RED, (j * CELL_SIZE + CELL_SIZE + 440// 2, i * CELL_SIZE + CELL_SIZE + 100// 2), PIECE_SIZE)
+                    pygame.draw.rect(screen, GREEN, rect, PIECE_SIZE + 5)
                     pygame.draw.rect(screen, GRAY, rect, 2)
+                    
                 else:
-                    pygame.draw.polygon(screen, BLUE, ((270+10+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+90+CELL_SIZE*j,100+20+CELL_SIZE*i),(270+50+CELL_SIZE*j,100+80+CELL_SIZE*i)))
+                    pygame.draw.circle(screen, RED, (j * CELL_SIZE + CELL_SIZE + 440// 2, i * CELL_SIZE + CELL_SIZE + 100// 2), PIECE_SIZE)
                     pygame.draw.rect(screen, GRAY, rect, 2)
 
 
@@ -124,9 +125,9 @@ class SceneHuman(Scene):
             if i == self.piece:
                 colors[i] = RED
         text1 = menu_font.render("Choose a piece:", True, BLACK)
-        text2 = menu_font.render("1 - Square", True, colors[1])
-        text3 = menu_font.render("2 - Circle", True, colors[2])
-        text4 = menu_font.render("3 - Triangle", True, colors[3])
+        text2 = menu_font.render("1 - Triangle", True, colors[1])
+        text3 = menu_font.render("2 - Rectangle", True, colors[2])
+        text4 = menu_font.render("3 - Circle", True, colors[3])
         text5 = menu_font.render("0 - Erase", True, colors[0])
         menu_width = max(text1.get_width(), text2.get_width(), text3.get_width(), text4.get_width()) +10
         menu_height = text1.get_height() * 5 + 15
@@ -162,6 +163,7 @@ class SceneHuman(Scene):
                 if i < BOARD_SIZE and j < BOARD_SIZE and (self.board[i][j] == 0 or self.piece == 0):
                     self.board[i][j] = self.piece
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
+                self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
         return self
  
