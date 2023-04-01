@@ -94,6 +94,13 @@ class SceneAiUniform(Scene):
         self.uc_text_two_rect = self.uc_text_two.get_rect()
         self.uc_text_two_rect = (750, 620)
 
+        # Define back button
+        self.backButton = pygame.image.load("Images/backward.png")
+
+        # Get dimensions of button
+        self.backButton_rect = self.backButton.get_rect()
+        self.backButton_rect = (900, 590)
+
     def cancel_thread(self):
         pass
 
@@ -101,9 +108,6 @@ class SceneAiUniform(Scene):
         pass
  
     def on_event(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_BACKSPACE:
-                return scene_home.SceneHome(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(20, 480, 300, 40).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)
@@ -111,6 +115,8 @@ class SceneAiUniform(Scene):
                 return scene_bfs.SceneBFS(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 return scene_iterative.SceneIterative(self.dir)
+            if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
+                return scene_home.SceneHome(self.dir)
         return self
  
     def on_draw(self, screen):
@@ -146,3 +152,4 @@ class SceneAiUniform(Scene):
         draw_triangle(725, 458, screen, self.red)
         pygame.draw.rect(screen, self.red, pygame.Rect(810, 260, 70, 70))
         pygame.draw.circle(screen, self.red, [545, 480], 40)
+        screen.blit(self.backButton, self.backButton_rect)

@@ -62,10 +62,10 @@ class SceneHuman(Scene):
 
         self.human_text_rect = (53, 40)
 
-        #Define back button
+        # Define back button
         self.backButton = pygame.image.load("Images/backward.png")
 
-        #Get dimensions of button
+        # Get dimensions of button
         self.backButton_rect = self.backButton.get_rect()
         self.backButton_rect = (900, 590)
  
@@ -162,7 +162,6 @@ class SceneHuman(Scene):
                 if i < BOARD_SIZE and j < BOARD_SIZE and (self.board[i][j] == 0 or self.piece == 0):
                     self.board[i][j] = self.piece
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
-                self.cancel_thread()
                 return scene_home.SceneHome(self.dir)
         return self
  

@@ -95,6 +95,13 @@ class SceneAiHeuristic(Scene):
         self.uc_text_two_rect = self.uc_text_two.get_rect()
         self.uc_text_two_rect = (750, 620)
 
+        # Define back button
+        self.backButton = pygame.image.load("Images/backward.png")
+
+        # Get dimensions of button
+        self.backButton_rect = self.backButton.get_rect()
+        self.backButton_rect = (900, 590)
+
     def cancel_thread(self):
         pass
 
@@ -102,9 +109,6 @@ class SceneAiHeuristic(Scene):
         pass
  
     def on_event(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_BACKSPACE:
-                return scene_home.SceneHome(self.dir)
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(20, 420, 300, 40).collidepoint(event.pos):
                 return scene_ai_uniform.SceneAiUniform(self.dir)
@@ -114,6 +118,8 @@ class SceneAiHeuristic(Scene):
                 return scene_a_star.SceneAStar(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 return scene_weighted_a_star.SceneWeightedAStar(self.dir)
+            if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
+                return scene_home.SceneHome(self.dir)
         return self
  
     def on_draw(self, screen):
@@ -149,3 +155,4 @@ class SceneAiHeuristic(Scene):
         draw_triangle(725, 458, screen, self.red)
         pygame.draw.rect(screen, self.red, pygame.Rect(810, 260, 70, 70))
         pygame.draw.circle(screen, self.red, [545, 480], 40)
+        screen.blit(self.backButton, self.backButton_rect)
