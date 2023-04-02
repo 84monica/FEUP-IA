@@ -186,6 +186,7 @@ print("BFS --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test iterative deepening
 # easy_games
@@ -196,6 +197,7 @@ print("Iterative Deepening --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test Greedy Search with h1
 # normal_difficulty_games
@@ -206,6 +208,7 @@ print("Greedy h1 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test Greedy Search with h2
 # hard_games (just the 4th one)
@@ -216,6 +219,7 @@ print("Greedy h2 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test Greedy Search with h3
 # normal_difficulty_games (0, 2, 3)
@@ -226,6 +230,7 @@ print("Greedy h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test A* Search
 # normal_difficulty_games (2, 3)
@@ -236,6 +241,7 @@ print("A* h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test weighted A* Search
 # normal_difficulty_games
@@ -247,6 +253,7 @@ print("Weighted A* h1 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test weighted A* Search
 # normal_difficulty_games
@@ -257,6 +264,7 @@ print("Weighted A* h2 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
 
 # Test weighted A* Search
 # hard_games (1, 2, 4, 5)
@@ -267,3 +275,4 @@ print("Weighted A* h3 --------------------")
 # solution.print_move_history()
 print("TIME: " + str(finish_time-start_time))
 print("STEPS: " + str(steps))
+print("\n")
