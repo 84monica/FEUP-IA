@@ -49,9 +49,6 @@ class SceneAiUniform(Scene):
         self.bfs_text_one = self.small_font.render('Breath', True, self.white)
         self.bfs_text_two = self.small_font.render('First Search', True, self.white)
 
-        self.dfs_text_one = self.small_font.render('Depth', True, self.white)
-        self.dfs_text_two = self.small_font.render('First Search', True, self.white)
-
         self.id_text_one = self.small_font.render('Iterative', True, self.white)
         self.id_text_two = self.small_font.render('Deepening', True, self.white)
 
@@ -76,11 +73,6 @@ class SceneAiUniform(Scene):
         self.bfs_text_one_rect = (560, 240)
         self.bfs_text_two_rect = self.bfs_text_two.get_rect()
         self.bfs_text_two_rect = (530, 270)
-
-        self.dfs_text_one_rect = self.dfs_text_one.get_rect()
-        self.dfs_text_one_rect = (815, 340)
-        self.dfs_text_two_rect = self.dfs_text_two.get_rect()
-        self.dfs_text_two_rect = (780, 370)
 
         self.id_text_one_rect = self.id_text_one.get_rect()
         self.id_text_one_rect = (505, 520)
@@ -113,6 +105,8 @@ class SceneAiUniform(Scene):
                 return scene_bfs.SceneBFS(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 return scene_iterative.SceneIterative(self.dir)
+            if pygame.Rect(700, 500, 150, 150).collidepoint(event.pos):
+                return scene_bfs.SceneBFS(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_home.SceneHome(self.dir)
         return self
@@ -128,12 +122,9 @@ class SceneAiUniform(Scene):
 
         draw_rectangle(520, 150, screen, self.blue)
         draw_rectangle(470, 430, screen, self.blue)
-        draw_rectangle(770, 250, screen, self.blue)
         draw_rectangle(700, 500, screen, self.blue)
         screen.blit(self.bfs_text_one, self.bfs_text_one_rect)
         screen.blit(self.bfs_text_two, self.bfs_text_two_rect)
-        screen.blit(self.dfs_text_one, self.dfs_text_one_rect)
-        screen.blit(self.dfs_text_two, self.dfs_text_two_rect)
         screen.blit(self.id_text_one, self.id_text_one_rect)
         screen.blit(self.id_text_two, self.id_text_two_rect)
         screen.blit(self.uc_text_one, self.uc_text_one_rect)
@@ -148,6 +139,5 @@ class SceneAiUniform(Scene):
 
         draw_triangle(545, 108, screen, self.red)
         draw_triangle(725, 458, screen, self.red)
-        pygame.draw.rect(screen, self.red, pygame.Rect(810, 260, 70, 70))
         pygame.draw.circle(screen, self.red, [545, 480], 40)
         screen.blit(self.backButton, self.backButton_rect)
