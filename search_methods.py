@@ -174,6 +174,7 @@ solution = None
 
 def test_bfs_easy(game):
     global solution
+    global time_
     # Test BFS
     # easy_games
     start_time = time.time()
@@ -181,10 +182,12 @@ def test_bfs_easy(game):
     finish_time = time.time()
     print("EASY BFS GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_iterative_easy(game):
     global solution
+    global time_
     # Test iterative deepening
     # easy_games
     start_time = time.time()
@@ -192,10 +195,12 @@ def test_iterative_easy(game):
     finish_time = time.time()
     print("ITERATIVE DEEPENING GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_greedy_easy(game, heuristic):
     global solution
+    global time_
     # Test Greedy Search with h1
     # easy_games
     start_time = time.time()
@@ -203,10 +208,12 @@ def test_greedy_easy(game, heuristic):
     finish_time = time.time()
     print("EASY GREEDY H1 GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_greedy_normal(game, heuristic):
     global solution
+    global time_
     # Test Greedy Search with h1
     # normal_difficulty_games
     # Test Greedy Search with h3
@@ -216,10 +223,12 @@ def test_greedy_normal(game, heuristic):
     finish_time = time.time()
     print("NORMAL GREEDY H1 GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_greedy_hard(game, heuristic):
     global solution
+    global time_
     # Test Greedy Search with h2
     # hard_games (just the 4th one)
     start_time = time.time()
@@ -227,20 +236,24 @@ def test_greedy_hard(game, heuristic):
     finish_time = time.time()
     print("HARD GREEDY H2 GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_a_star_easy(game, heuristic):
     global solution
+    global time_
     # Test A* Search
     start_time = time.time()
     solution = a_star_search(easy_games()[game], heuristic)
     finish_time = time.time()
     print("A* H1 GAME:"  + str(game+1) + " --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_a_star_normal(game, heuristic):
     global solution
+    global time_
     # Test A* Search
     # normal_difficulty_games (2, 3)
     start_time = time.time()
@@ -248,10 +261,12 @@ def test_a_star_normal(game, heuristic):
     finish_time = time.time()
     print("A* H2 GAME: 3 --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_weighted_a_star_easy(game, heuristic, weight):
     global solution
+    global time_
     # Test A* Search
     # hard_games (just the 4th one)
     start_time = time.time()
@@ -259,10 +274,12 @@ def test_weighted_a_star_easy(game, heuristic, weight):
     finish_time = time.time()
     print("A* H1 GAME: 0 --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 def test_weighted_a_star_normal(game, heuristic, weight):
     global solution
+    global time_
     # Test weighted A* Search
     # normal_difficulty_games
     normal_difficulty_games
@@ -271,11 +288,13 @@ def test_weighted_a_star_normal(game, heuristic, weight):
     finish_time = time.time()
     print("WEIGHTED A* H1 GAME: 0 --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))
 
 
 def test_weighted_a_star_hard(game, heuristic, weight):
     global solution
+    global time_
     # Test weighted A* Search
     # hard_games (1, 2, 4, 5)
     start_time = time.time()
@@ -283,4 +302,5 @@ def test_weighted_a_star_hard(game, heuristic, weight):
     finish_time = time.time()
     print("WEIGHTED A* H3 GAME: 1 --------------------")
     # solution.print_move_history()
+    time_ = finish_time-start_time
     print("TIME: " + str(finish_time-start_time))

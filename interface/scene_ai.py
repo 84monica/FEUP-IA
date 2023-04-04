@@ -36,6 +36,7 @@ class SceneHuman(Scene):
         # search_methods.test_bfs_easy(0)
       
         self.board = search_methods.solution.move_history[0]
+        self.time_ = search_methods.time_
 
         self.play = False
         self.done = False
@@ -58,6 +59,7 @@ class SceneHuman(Scene):
         # Define the texts
         self.ia_text = self.font.render('IA', True, self.white)
         self.finish_text = self.font.render('Finish!', True, self.white)
+        self.time_text = self.font.render('Time: ' + str(round(self.time_, 2)), True, self.white)
 
 
         # Get the dimensions of the text
@@ -66,6 +68,9 @@ class SceneHuman(Scene):
 
         self.finish_text_rect = self.finish_text.get_rect()
         self.finish_text_rect = (30, 140)
+
+        self.time_text_rect = self.time_text.get_rect()
+        self.time_text_rect = (30, 240)
 
 
         # Define back button
@@ -143,6 +148,8 @@ class SceneHuman(Scene):
         
         if self.done == True:
             screen.blit(self.finish_text, self.finish_text_rect)
+            screen.blit(self.time_text, self.time_text_rect)
+
         if self.play == False:
             screen.blit(self.playButton, self.playButton_rect)
 
