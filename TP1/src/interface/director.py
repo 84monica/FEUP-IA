@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
  
 # Modules
-import pygame, sys
+import pygame
  
 class Director:
     """Represents the main object of the game.

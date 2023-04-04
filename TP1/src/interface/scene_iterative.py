@@ -4,8 +4,6 @@ import sys
 import search_methods
 import scene_ai
 
-sys.path.append('../FEUP-IA/interface')
-
 import scene_ai_uniform
 
 def draw_rectangle(x, y, screen, color):

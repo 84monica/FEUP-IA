@@ -2,8 +2,6 @@ import pygame
 from scene import Scene
 import sys
 
-sys.path.append('../FEUP-IA/interface')
-
 import scene_ai_uniform
 import scene_home
 import scene_greedy
