@@ -9,7 +9,7 @@ class TimerClass(threading.Thread):
 
     def run(self):
         while self.count >= 0 and not self.event.is_set():
-            print (self.count)
+            # print (self.count)
             self.count += 1
             self.event.wait(1)
 

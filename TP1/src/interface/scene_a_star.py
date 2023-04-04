@@ -97,10 +97,10 @@ class SceneAStar(Scene):
                 search_methods.test_a_star_easy(0, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                search_methods.test_a_star_normal(2, scene_ai_choose_heuristic.heuristic_)
+                search_methods.test_a_star_normal(3, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
-                search_methods.test_a_star_normal(3, scene_ai_choose_heuristic.heuristic_)
+                search_methods.test_a_star_normal(2, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)
