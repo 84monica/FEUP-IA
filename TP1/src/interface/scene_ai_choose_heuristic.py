@@ -58,6 +58,19 @@ class SceneAiChooseHeuristic(Scene):
         self.id_text_one = self.small_font.render('H3', True, self.white)
         self.id_text_two = self.small_font.render(' ', True, self.white)
 
+        self.h1_text_1 = self.small_font.render('Number of rows and', True, self.white)
+        self.h1_text_2 = self.small_font.render('columns that are\'t', True, self.white)
+        self.h1_text_3 = self.small_font.render('palindormes / 2', True, self.white)
+
+        self.h2_text_1 = self.small_font.render('Assigns a score to each row', True, self.white)
+        self.h2_text_2 = self.small_font.render('and column based on how ', True, self.white)
+        self.h2_text_3 = self.small_font.render('close it is to being a palindrome', True, self.white)
+
+        self.h3_text_1 = self.small_font.render('Makes an estimation of the ', True, self.white)
+        self.h3_text_2 = self.small_font.render('number of pieces that need to', True, self.white)
+        self.h3_text_3 = self.small_font.render('be placed to end the game', True, self.white)
+
+
 
         # Get the dimensions of the text
         self.ai_text_rect = self.ai_text.get_rect()
@@ -87,6 +100,30 @@ class SceneAiChooseHeuristic(Scene):
         self.id_text_one_rect = (450, 590)
         self.id_text_two_rect = self.id_text_two.get_rect()
         self.id_text_two_rect = (490, 550)
+
+        self.h1_text_1_rect = self.h1_text_1.get_rect()
+        self.h1_text_2_rect = self.h1_text_2.get_rect()
+        self.h1_text_3_rect = self.h1_text_3.get_rect()
+
+        self.h2_text_1_rect = self.h2_text_1.get_rect()
+        self.h2_text_2_rect = self.h2_text_2.get_rect()
+        self.h2_text_3_rect = self.h2_text_3.get_rect()
+
+        self.h3_text_1_rect = self.h3_text_1.get_rect()
+        self.h3_text_2_rect = self.h3_text_2.get_rect()
+        self.h3_text_3_rect = self.h3_text_3.get_rect()
+
+        self.h1_text_1_rect = (700, 175)
+        self.h1_text_2_rect = (700, 205)
+        self.h1_text_3_rect = (700, 235)
+
+        self.h2_text_1_rect = (640, 350)
+        self.h2_text_2_rect = (640, 385)
+        self.h2_text_3_rect = (640, 420)
+
+        self.h3_text_1_rect = (580, 520)
+        self.h3_text_2_rect = (580, 555)
+        self.h3_text_3_rect = (580, 590)
 
         # Define back button
         self.backButton = pygame.image.load("TP1/src/Images/backward.png")
@@ -156,6 +193,18 @@ class SceneAiChooseHeuristic(Scene):
         screen.blit(self.uniform_title_text, self.uniform_title_text_rect)
         screen.blit(self.first_title_text, self.first_title_text_rect)
         screen.blit(self.second_title_text, self.second_title_text_rect)
+
+        screen.blit(self.h1_text_1, self.h1_text_1_rect)
+        screen.blit(self.h1_text_2, self.h1_text_2_rect)
+        screen.blit(self.h1_text_3, self.h1_text_3_rect)
+
+        screen.blit(self.h2_text_1, self.h2_text_1_rect)
+        screen.blit(self.h2_text_2, self.h2_text_2_rect)
+        screen.blit(self.h2_text_3, self.h2_text_3_rect)
+
+        screen.blit(self.h3_text_1, self.h3_text_1_rect)
+        screen.blit(self.h3_text_2, self.h3_text_2_rect)
+        screen.blit(self.h3_text_3, self.h3_text_3_rect)
 
         draw_triangle(545, 108, screen, self.red)
         pygame.draw.rect(screen, self.red, pygame.Rect(495, 330, 70, 70))
