@@ -170,6 +170,7 @@ def weighted_a_star_search(problem, W, heuristic):
 # SEARCH ALGORITHMS TEST
 # -------------------------------------------------
 solution = None
+time_ = None
 
 def test_bfs_easy(game):
     global solution
