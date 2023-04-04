@@ -2,6 +2,7 @@ import pygame
 from scene import Scene
 import sys
 import search_methods
+import scene_ai
 
 sys.path.append('../FEUP-IA/interface')
 
@@ -103,9 +104,11 @@ class SceneGreedy(Scene):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
                 search_methods.test_greedy_normal(0, search_methods.h1)
-                search_methods.test_greedy_normal(0, search_methods.h3)
+                return scene_ai.SceneHuman(self.dir)
+                # search_methods.test_greedy_normal(0, search_methods.h3)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 search_methods.test_greedy_hard(4, search_methods.h2)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)
 

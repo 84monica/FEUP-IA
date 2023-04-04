@@ -2,6 +2,7 @@ import pygame
 from scene import Scene
 import sys
 import search_methods
+import scene_ai
 
 sys.path.append('../FEUP-IA/interface')
 
@@ -103,8 +104,10 @@ class SceneWeightedAStar(Scene):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
                 search_methods.test_weighted_a_star_normal(0, 8)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 search_methods.test_weighted_a_star_hard(0, 8)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)
 
