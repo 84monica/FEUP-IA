@@ -2,12 +2,12 @@
 
 ## How to Run
 
-* From inside the folder src/ run main.py
+* From the folder FEUP-IA/ run main.py
 ```
-python main.py
+python TP1/src/main.py
 ```
 * You can select AI or Human, when selecting AI it is shown a list of uninformed search methods and heurisct search methods. 
-* When you choose the search method you can choose from the provided game difficulties. 
+* When you choose the search method you can choose from the provided game difficulties and the heuristics. 
 * You can choose which one you'd like and the AI solves the game and shows you the time it took to get to that solution. 
 
 ## Code Organization
@@ -18,4 +18,3 @@ python main.py
 ## Notes
 * Our uniform cost algorithm is the same as BFS because our cost is 1
 * We removed the DFS from the interface as I could not solve easy games (we have only iterative deepening)
-* In the interface you are not able to choose the heuristic you want although we implemented 3 and make the comparision between them in the slides
