@@ -14,3 +14,8 @@ python main.py
 * The logic of the game is implemented in the file game_state.py
 * The search methods are in the file search_methods.py
 * The interface code is present in the folder called interface
+
+## Notes
+* Our uniform cost algorithm is the same as BFS because our cost is 1
+* We removed the DFS from the interface as I could not solve easy games (we have only iterative deepening)
+* In the interface you are not able to choose the heuristic you want although we implemented 3 and make the comparision between them in the slides
