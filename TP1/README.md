@@ -2,7 +2,7 @@
 
 ## How to Run
 
-* Run main.py
+* From inside the folder src/ run main.py
 ```
 python main.py
 ```
