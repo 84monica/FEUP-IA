@@ -15,7 +15,6 @@ def breadth_first_search(problem):
     visited = set() # to not visit the same state twice
 
     while queue:
-        # print("ainda aqui")
         state = queue.pop(0)
         visited.add(state)
 

@@ -50,14 +50,9 @@ class SceneBFS(Scene):
         self.bfs_text_one = self.small_font.render('Easy', True, self.white)
         self.bfs_text_two = self.small_font.render('First Search', True, self.white)
 
-        self.dfs_text_one = self.small_font.render('Normal', True, self.white)
         self.dfs_text_two = self.small_font.render('First Search', True, self.white)
 
-        self.id_text_one = self.small_font.render('Hard', True, self.white)
         self.id_text_two = self.small_font.render('Deepening', True, self.white)
-
-        self.uc_text_one = self.small_font.render('Very', True, self.white)
-        self.uc_text_two = self.small_font.render('Hard', True, self.white)
 
         # Get the dimensions of the text
         self.ai_text_rect = self.ai_text.get_rect()
@@ -75,17 +70,6 @@ class SceneBFS(Scene):
 
         self.bfs_text_one_rect = self.bfs_text_one.get_rect()
         self.bfs_text_one_rect = (570, 255)
-
-        self.dfs_text_one_rect = self.dfs_text_one.get_rect()
-        self.dfs_text_one_rect = (807, 355)
-
-        self.id_text_one_rect = self.id_text_one.get_rect()
-        self.id_text_one_rect = (520, 535)
-
-        self.uc_text_one_rect = self.uc_text_one.get_rect()
-        self.uc_text_one_rect = (750, 590)
-        self.uc_text_two_rect = self.uc_text_two.get_rect()
-        self.uc_text_two_rect = (749, 620)
 
         # Define back button
         self.backButton = pygame.image.load("Images/backward.png")
@@ -117,14 +101,7 @@ class SceneBFS(Scene):
         pygame.draw.polygon(screen, self.blue, self.division_vertices)
 
         draw_rectangle(520, 150, screen, self.blue)
-        draw_rectangle(470, 430, screen, self.blue)
-        draw_rectangle(770, 250, screen, self.blue)
-        draw_rectangle(700, 500, screen, self.blue)
         screen.blit(self.bfs_text_one, self.bfs_text_one_rect)
-        screen.blit(self.dfs_text_one, self.dfs_text_one_rect)
-        screen.blit(self.id_text_one, self.id_text_one_rect)
-        screen.blit(self.uc_text_one, self.uc_text_one_rect)
-        screen.blit(self.uc_text_two, self.uc_text_two_rect)
 
         screen.blit(self.ai_text, self.ai_text_rect)
         screen.blit(self.uniform_text, self.uniform_text_rect)
@@ -133,8 +110,5 @@ class SceneBFS(Scene):
         screen.blit(self.second_title_text, self.second_title_text_rect)
 
         draw_triangle(545, 108, screen, self.red)
-        draw_triangle(725, 458, screen, self.red)
-        pygame.draw.rect(screen, self.red, pygame.Rect(810, 260, 70, 70))
-        pygame.draw.circle(screen, self.red, [545, 480], 40)
 
         screen.blit(self.backButton, self.backButton_rect)
