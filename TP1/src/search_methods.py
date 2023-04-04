@@ -203,6 +203,7 @@ def test_greedy_easy(game, heuristic):
     global time_
     # Test Greedy Search with h1
     # easy_games
+    print(heuristic)
     start_time = time.time()
     solution = greedy_search(easy_games()[game], heuristic)
     finish_time = time.time()
@@ -231,6 +232,7 @@ def test_greedy_hard(game, heuristic):
     global time_
     # Test Greedy Search with h2
     # hard_games (just the 4th one)
+    print(heuristic)
     start_time = time.time()
     solution = greedy_search(hard_games()[game], heuristic)
     finish_time = time.time()

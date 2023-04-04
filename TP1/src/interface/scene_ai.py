@@ -72,8 +72,8 @@ class SceneHuman(Scene):
 
 
         # Define back button
-        self.backButton = pygame.image.load("Images/backward.png")
-        self.playButton = pygame.image.load("Images/play_button.png")
+        self.backButton = pygame.image.load("TP1/src/Images/backward.png")
+        self.playButton = pygame.image.load("TP1/src/Images/play_button.png")
 
         # Get dimensions of button
         self.backButton_rect = self.backButton.get_rect()

@@ -6,6 +6,7 @@ import scene_ai_heuristic
 import scene_home
 import scene_bfs
 import scene_iterative
+import scene_ai_choose_heuristic
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -88,7 +89,7 @@ class SceneAiUniform(Scene):
 
 
         # Define back button
-        self.backButton = pygame.image.load("Images/backward.png")
+        self.backButton = pygame.image.load("TP1/src/Images/backward.png")
 
         # Get dimensions of button
         self.backButton_rect = self.backButton.get_rect()
@@ -103,7 +104,7 @@ class SceneAiUniform(Scene):
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(20, 480, 300, 40).collidepoint(event.pos):
-                return scene_ai_heuristic.SceneAiHeuristic(self.dir)
+                return scene_ai_choose_heuristic.SceneAiChooseHeuristic(self.dir)
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
                 return scene_bfs.SceneBFS(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):

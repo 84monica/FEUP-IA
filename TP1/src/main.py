@@ -5,7 +5,7 @@
 import pygame
 import sys
 
-sys.path.append('interface')
+sys.path.append('TP1/src/interface')
 
 import director
 import scene_home

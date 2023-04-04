@@ -5,6 +5,7 @@ import search_methods
 import scene_ai
 
 import scene_ai_heuristic
+import scene_ai_choose_heuristic
 
 def draw_rectangle(x, y, screen, color):
     pygame.draw.rect(screen, color, pygame.Rect(x, y, 150, 150))
@@ -78,7 +79,7 @@ class SceneGreedy(Scene):
         self.id_text_one_rect = (520, 535)
 
         # Define back button
-        self.backButton = pygame.image.load("Images/backward.png")
+        self.backButton = pygame.image.load("TP1/src/Images/backward.png")
 
         # Get dimensions of button
         self.backButton_rect = self.backButton.get_rect()
@@ -89,17 +90,17 @@ class SceneGreedy(Scene):
 
     def on_update(self):
         pass
- 
+
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                search_methods.test_greedy_easy(0, search_methods.h1)
+                search_methods.test_greedy_easy(0, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                search_methods.test_greedy_normal(0, search_methods.h1)
+                search_methods.test_greedy_normal(0, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
-                search_methods.test_greedy_hard(4, search_methods.h2)
+                search_methods.test_greedy_hard(4, scene_ai_choose_heuristic.heuristic_)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)

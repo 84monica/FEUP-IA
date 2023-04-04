@@ -88,7 +88,7 @@ class SceneAiHeuristic(Scene):
 
 
         # Define back button
-        self.backButton = pygame.image.load("Images/backward.png")
+        self.backButton = pygame.image.load("TP1/src/Images/backward.png")
 
         # Get dimensions of button
         self.backButton_rect = self.backButton.get_rect()
