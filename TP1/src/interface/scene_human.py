@@ -191,8 +191,8 @@ class SceneHuman(Scene):
         screen.blit(self.backButton, self.backButton_rect)
         if self.done:
             screen.blit(self.won_text, self.won_text_rect)
-        screen.blit(self.font.render(str(self.tmr.get_count()), True, (0, 0, 0)), (120, 100))
-        screen.blit(self.font.render(self.time, True, (0, 0, 0)), (30, 100))
+        screen.blit(self.font.render(str(self.tmr.get_count()), True, WHITE), (120, 100))
+        screen.blit(self.font.render(self.time, True, WHITE), (30, 100))
 
         self.draw_board(screen)
         self.dj_piece()
