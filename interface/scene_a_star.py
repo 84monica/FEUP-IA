@@ -102,8 +102,11 @@ class SceneAStar(Scene):
  
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
+            if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
+                search_methods.test_a_star_easy(0, search_methods.h1)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                search_methods.test_a_star_normal(3, search_methods.h2)
+                search_methods.test_a_star_normal(2, search_methods.h3)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)

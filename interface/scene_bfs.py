@@ -103,21 +103,8 @@ class SceneBFS(Scene):
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                print("easy")
                 search_methods.test_bfs_easy(0)
                 return scene_ai.SceneHuman(self.dir)
-            if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                print("medium")
-                search_methods.test_bfs_medium(0)
-                return scene_ai.SceneHuman(self.dir)
-            if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
-                print("Hard")
-                search_methods.test_bfs_hard(0)
-                return scene_ai.SceneHuman(self.dir) 
-            if pygame.Rect(700, 500, 150, 150).collidepoint(event.pos):
-                print("Very_Hard")
-                search_methods.test_bfs_very_hard(0)
-                return scene_ai.SceneHuman(self.dir) 
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_uniform.SceneAiUniform(self.dir)
 

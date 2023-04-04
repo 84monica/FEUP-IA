@@ -102,11 +102,14 @@ class SceneWeightedAStar(Scene):
  
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
+            if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
+                search_methods.test_weighted_a_star_easy(0, search_methods.h1,8)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
-                search_methods.test_weighted_a_star_normal(0, 8)
+                search_methods.test_weighted_a_star_normal(0, search_methods.h1,8)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
-                search_methods.test_weighted_a_star_hard(0, 8)
+                search_methods.test_weighted_a_star_hard(1, search_methods.h3, 8)
                 return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_heuristic.SceneAiHeuristic(self.dir)

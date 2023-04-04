@@ -102,10 +102,12 @@ class SceneGreedy(Scene):
  
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
+            if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
+                search_methods.test_greedy_easy(0, search_methods.h1)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(770, 250, 150, 150).collidepoint(event.pos):
                 search_methods.test_greedy_normal(0, search_methods.h1)
                 return scene_ai.SceneHuman(self.dir)
-                # search_methods.test_greedy_normal(0, search_methods.h3)
             if pygame.Rect(470, 430, 150, 150).collidepoint(event.pos):
                 search_methods.test_greedy_hard(4, search_methods.h2)
                 return scene_ai.SceneHuman(self.dir)
