@@ -2,6 +2,7 @@ import pygame
 from scene import Scene
 import sys
 import search_methods
+import scene_ai
 
 sys.path.append('../FEUP-IA/interface')
 
@@ -102,9 +103,11 @@ class SceneIterative(Scene):
     def on_event(self, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.Rect(520, 150, 150, 150).collidepoint(event.pos):
-                search_methods.test_iterative_easy(0)
+                print("easy")
+                # search_methods.test_iterative_easy(0)
                 search_methods.test_iterative_easy(1)
-                search_methods.test_iterative_easy(2)
+                # search_methods.test_iterative_easy(2)
+                return scene_ai.SceneHuman(self.dir)
             if pygame.Rect(900, 590, 64, 64).collidepoint(event.pos):
                 return scene_ai_uniform.SceneAiUniform(self.dir)
 

@@ -15,6 +15,7 @@ def breadth_first_search(problem):
     visited = set() # to not visit the same state twice
 
     while queue:
+        # print("ainda aqui")
         state = queue.pop(0)
         visited.add(state)
 
@@ -169,8 +170,10 @@ def weighted_a_star_search(problem, W, heuristic):
 # -------------------------------------------------
 # SEARCH ALGORITHMS TEST
 # -------------------------------------------------
+solution = None
 
 def test_bfs_easy(game):
+    global solution
     # Test BFS
     # easy_games
     start_time = time.time()
@@ -181,16 +184,18 @@ def test_bfs_easy(game):
     print("TIME: " + str(finish_time-start_time))
 
 def test_bfs_medium(game):
+    global solution
     # Test BFS
     # normal_difficulty_games
     start_time = time.time()
-    solution = breadth_first_search(normal_difficulty_games()[0])
+    solution = breadth_first_search(normal_difficulty_games()[game])
     finish_time = time.time()
     print("NORMAL BFS GAME:" + str(game+1) + " --------------------")
     # solution.print_move_history()
     print("TIME: " + str(finish_time-start_time))
 
 def test_bfs_hard(game):
+    global solution
     # Test BFS
     # hard_games
     start_time = time.time()
@@ -201,6 +206,7 @@ def test_bfs_hard(game):
     print("TIME: " + str(finish_time-start_time))
 
 def test_bfs_very_hard(game):
+    global solution
     # Test BFS
     # very_hard_games
     start_time = time.time()
@@ -211,6 +217,7 @@ def test_bfs_very_hard(game):
     print("TIME: " + str(finish_time-start_time))
 
 def test_iterative_easy(game):
+    global solution
     # Test iterative deepening
     # easy_games
     start_time = time.time()
@@ -221,6 +228,7 @@ def test_iterative_easy(game):
     print("TIME: " + str(finish_time-start_time))
 
 def test_greedy_normal(game, heuristic):
+    global solution
     # Test Greedy Search with h1
     # normal_difficulty_games
     # Test Greedy Search with h3
@@ -233,6 +241,7 @@ def test_greedy_normal(game, heuristic):
     print("TIME: " + str(finish_time-start_time))
 
 def test_greedy_hard(game, heuristic):
+    global solution
     # Test Greedy Search with h2
     # hard_games (just the 4th one)
     start_time = time.time()
@@ -243,6 +252,7 @@ def test_greedy_hard(game, heuristic):
     print("TIME: " + str(finish_time-start_time))
 
 def test_a_star_normal(game, heuristic):
+    global solution
     # Test A* Search
     # normal_difficulty_games (2, 3)
     start_time = time.time()
@@ -253,6 +263,7 @@ def test_a_star_normal(game, heuristic):
     print("TIME: " + str(finish_time-start_time))
 
 def test_weighted_a_star_normal(game, weight):
+    global solution
     # Test weighted A* Search
     # normal_difficulty_games
     normal_difficulty_games
@@ -273,6 +284,7 @@ def test_weighted_a_star_normal(game, weight):
     print("TIME: " + str(finish_time-start_time))
 
 def test_weighted_a_star_hard(game, weight):
+    global solution
     # Test weighted A* Search
     # hard_games (1, 2, 4, 5)
     start_time = time.time()
