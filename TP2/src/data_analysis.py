@@ -93,10 +93,32 @@ plt.ylabel('Count')
 # Display plot
 plt.show()
 
+
+
+
+# SEX VS. HEART DISEASE
+
+# Create a new DataFrame with smoker and heart disease columns
+smoker_heartdisease = dataset[['Sex', 'HeartDisease']]
+ 
+# Count instances of smoker and heart disease grouping
+grouped_data = smoker_heartdisease.groupby(['Sex', 'HeartDisease']).size().reset_index(name='Counts')
+ 
+# Create grouped bar plot
+sns.barplot(x="Sex", y="Counts", hue="HeartDisease", data=grouped_data)
+ 
+# Add labels
+plt.title('Sex and Heart Disease')
+plt.xlabel('Sex Status')
+plt.ylabel('Count')
+ 
+# Display plot
+plt.show()
+
+
 # TODO
 # 1. Plot with BMI and Heart Disease
 # 2. Plot with Age and Heart Disease
 # 3. Plot with Physical Health and Heart Disease
 # 4. Plot with Mental Health and Heart Disease
-# 5. Plot with Sex and Heart Disease
 # ...
