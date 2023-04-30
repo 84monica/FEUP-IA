@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -13,6 +12,22 @@ plt.show()
 
 
 # --------------------- PLOTS TO CHECK INCONSISTENCIES --------------------- #
+
+sns.countplot(x='AlcoholDrinking', data=dataset)
+plt.title('AlcoholDrinking')
+plt.show()
+
+sns.countplot(x='Sex', data=dataset)
+plt.title('Sex')
+plt.show()
+
+sns.countplot(x='Stroke', data=dataset)
+plt.title('Stroke')
+plt.show()
+
+sns.countplot(x='Smoking', data=dataset)
+plt.title('Smoking')
+plt.show()
 
 sns.countplot(x='AgeCategory', data=dataset)
 plt.title('Class Distribution')
