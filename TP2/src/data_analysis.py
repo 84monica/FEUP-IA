@@ -3,20 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-dataset = pd.read_csv('../dataset/Heart Disease.csv')
+dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 
 for column in dataset.columns:
     print(f"{column}: {dataset[column].unique()}")
- 
-
-# check and remove duplicates:
-
-duplicate_mask = dataset.duplicated()
-heart_disease = dataset.drop_duplicates()
-print(heart_disease)
-
-
-
 
 # --------------------- CLASS DISTRIBUTION --------------------- #
 

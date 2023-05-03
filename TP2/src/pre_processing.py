@@ -2,11 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-dataset = pd.read_csv('../dataset/Heart Disease.csv')
+dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 
 # --------------------- CLEAN DATASET --------------------- #
 
 # TODO: Physical and Mental Health seems weird
+
+# check and remove duplicates
+duplicate_mask = dataset.duplicated()
+heart_disease = dataset.drop_duplicates()
 
 # --------------------- HANDLING CATEGORICAL FEATURES --------------------- #
 
