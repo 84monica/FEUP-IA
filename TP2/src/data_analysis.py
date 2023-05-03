@@ -1,33 +1,22 @@
 import pandas as pd
-<<<<<<< HEAD
 import numpy as np
-
-heart_disease = pd.read_csv('/home/monica/Desktop/IA/proj/FEUP-IA/TP2/dataset/Heart_Disease.csv')
-
-for column in heart_disease.columns:
-    print(f"{column}: {heart_disease[column].unique()}")
- 
-
-# initially there is no missing value
-# remove the impossible values (0.0) from the heart_disease database
-
-#heart_disease['PhysicalHealth'] = heart_disease['PhysicalHealth'].replace(0.0, np.nan)
-#heart_disease['MentalHealth'] = heart_disease['MentalHealth'].replace(0.0, np.nan)
-#heart_disease = heart_disease.dropna()
-
-# check and remove duplicates:
-
-duplicate_mask = heart_disease.duplicated()
-heart_disease = heart_disease.drop_duplicates()
-print(heart_disease)
-
-
-
-=======
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 dataset = pd.read_csv('../dataset/Heart Disease.csv')
+
+for column in dataset.columns:
+    print(f"{column}: {dataset[column].unique()}")
+ 
+
+# check and remove duplicates:
+
+duplicate_mask = dataset.duplicated()
+heart_disease = dataset.drop_duplicates()
+print(heart_disease)
+
+
+
 
 # --------------------- CLASS DISTRIBUTION --------------------- #
 
@@ -172,4 +161,3 @@ plt.ylabel('Count')
 
 # Display plot
 plt.show()
->>>>>>> 5410f098583d2cd2431cf9968d21cc71f56f0a5b
