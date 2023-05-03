@@ -26,5 +26,5 @@ print("Accuracy: ", model_dt.score(X_test, y_test))
 print("Precision: ", metrics.precision_score(y_test, y_pred))
 
 # --------------------- TODO LIST --------------------- #
-# - Evaluation metrics
+# - More Evaluation metrics
 # - More models

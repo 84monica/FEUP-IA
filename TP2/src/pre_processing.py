@@ -28,14 +28,15 @@ print(dataset)
 dataset.to_csv('../dataset/Heart Disease - Processed.csv', index=False)
 
 # --------------------- CORRELATION MATRIX --------------------- #
+# TODO - clean correlation matrix
 corr_matrix = dataset.corr(method='spearman')
 print(corr_matrix)
 
 # Plot the correlation matrix using seaborn heatmap function
-# plt.figure(figsize=(12, 10))
-# sns.heatmap(corr_matrix, annot=True)
-# plt.title('Correlation Matrix')
-# plt.show()
+plt.figure(figsize=(12, 10))
+sns.heatmap(corr_matrix, annot=True)
+plt.title('Correlation Matrix')
+plt.show()
 
 # --------------------- FEATURE SELECTION --------------------- #
 # TODO: Feature selection
