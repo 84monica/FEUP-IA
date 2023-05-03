@@ -7,6 +7,7 @@ dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 # --------------------- CLEAN DATASET --------------------- #
 
 # TODO: Physical and Mental Health seems weird
+# TODO: Drop race column
 
 # check and remove duplicates
 duplicate_mask = dataset.duplicated()
@@ -27,10 +28,6 @@ dataset = pd.get_dummies(dataset, columns = ["Smoking","AlcoholDrinking","Stroke
 d = {'Yes': 1, 'No': 0}
 dataset['HeartDisease'] = dataset['HeartDisease'].map(d)
 
-# Save dataset
-print(dataset)
-dataset.to_csv('../dataset/Heart Disease - Processed.csv', index=False)
-
 # --------------------- CORRELATION MATRIX --------------------- #
 # TODO - clean correlation matrix
 corr_matrix = dataset.corr(method='spearman')
@@ -44,3 +41,7 @@ plt.show()
 
 # --------------------- FEATURE SELECTION --------------------- #
 # TODO: Feature selection
+
+# Save dataset
+print(dataset)
+dataset.to_csv('../dataset/Heart Disease - Processed.csv', index=False)
