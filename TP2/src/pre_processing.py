@@ -6,9 +6,6 @@ dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 
 # --------------------- CLEAN DATASET --------------------- #
 
-# TODO: Physical and Mental Health seems weird
-# TODO: Drop race column
-
 # check and remove duplicates
 duplicate_mask = dataset.duplicated()
 heart_disease = dataset.drop_duplicates()
@@ -16,7 +13,6 @@ heart_disease = dataset.drop_duplicates()
 # --------------------- HANDLING CATEGORICAL FEATURES --------------------- #
 
 # For now removing age category
-# TODO: Target Encoding because many age categories could be a problem
 print(dataset['AgeCategory'].unique())
 print(dataset['AgeCategory'].value_counts())
 dataset = dataset.drop(['AgeCategory'], axis=1)
@@ -29,7 +25,7 @@ d = {'Yes': 1, 'No': 0}
 dataset['HeartDisease'] = dataset['HeartDisease'].map(d)
 
 # --------------------- CORRELATION MATRIX --------------------- #
-# TODO - clean correlation matrix
+
 corr_matrix = dataset.corr(method='spearman')
 print(corr_matrix)
 
@@ -40,8 +36,15 @@ plt.title('Correlation Matrix')
 plt.show()
 
 # --------------------- FEATURE SELECTION --------------------- #
-# TODO: Feature selection
+
+# Drop race column
+dataset = dataset.drop(['Race'], axis=1)
 
 # Save dataset
 print(dataset)
 dataset.to_csv('../dataset/Heart Disease - Processed.csv', index=False)
+
+# --------------------- TODO LIST --------------------- #
+# TODO: Target Encoding because many age categories could be a problem
+# TODO: Clean correlation matrix
+# TODO: Feature selection

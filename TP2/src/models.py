@@ -8,7 +8,6 @@ from collections import Counter
 
 dataset = pd.read_csv('../dataset/Heart Disease - Processed.csv')
 
-
 # Select features and target variable
 features = dataset.columns.tolist()[1:]
 
@@ -42,4 +41,4 @@ print("F1 Score: ", metrics.f1_score(y_test, y_pred))
 print("Confusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
 
 # --------------------- TODO LIST --------------------- #
-# - More models
+# TODO: More models
