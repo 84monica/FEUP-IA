@@ -1,14 +1,16 @@
 import time
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import SMOTE
 from sklearn import metrics
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-from imblearn.over_sampling import SMOTE
 
 dataset = pd.read_csv('../dataset/Heart Disease - Processed.csv')
 
@@ -44,25 +46,6 @@ print("Recall: ", metrics.recall_score(y_test, y_pred))
 print("F1 Score: ", metrics.f1_score(y_test, y_pred))
 print("\nConfusion Matrix\n\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
 
-# --------------------- RANDOM FOREST --------------------- #
-
-time1 = time.time()
-
-model_rf = RandomForestClassifier()
-model_rf.fit(X_train, y_train)
-y_pred = model_rf.predict(X_test)
-
-time2 = time.time()
-
-# Evaluate the model
-print("\nRandom Forest ---------------------\n")
-print("Time spent: ", time2 - time1)
-print("\nAccuracy: ", model_rf.score(X_test, y_test))
-print("Precision: ", metrics.precision_score(y_test, y_pred))
-print("Recall: ", metrics.recall_score(y_test, y_pred))
-print("F1 Score: ", metrics.f1_score(y_test, y_pred))
-print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
-
 # --------------------- NEURAL NETWORK --------------------- #
 
 time1 = time.time()
@@ -77,6 +60,44 @@ time2 = time.time()
 print("\nNeural Network ---------------------\n")
 print("Time spent: ", time2 - time1)
 print("\nAccuracy: ", model_nn.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+# --------------------- NAIVE BAYES --------------------- #
+
+time1 = time.time()
+
+model_nb = GaussianNB()
+model_nb.fit(X_train, y_train)
+y_pred = model_nb.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nNaive Bayes ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_nb.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+# --------------------- RANDOM FOREST --------------------- #
+
+time1 = time.time()
+
+model_rf = RandomForestClassifier()
+model_rf.fit(X_train, y_train)
+y_pred = model_rf.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nRandom Forest ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_rf.score(X_test, y_test))
 print("Precision: ", metrics.precision_score(y_test, y_pred))
 print("Recall: ", metrics.recall_score(y_test, y_pred))
 print("F1 Score: ", metrics.f1_score(y_test, y_pred))
@@ -117,6 +138,25 @@ print("Time spent: ", time2 - time1)
 print("Mean Squared Error: ", metrics.mean_squared_error(y_test, y_pred))
 print("R-squared: ", metrics.r2_score(y_test, y_pred))
 
+# --------------------- LOGISTIC REGRESSION --------------------- #
+
+time1 = time.time()
+
+model_lr = LogisticRegression()
+model_lr.fit(X_train, y_train)
+y_pred = model_lr.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nLogistic Regression ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_lr.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
 # --------------------- K-NN --------------------- #
 
 time1 = time.time()
@@ -135,8 +175,3 @@ print("Precision: ", metrics.precision_score(y_test, y_pred))
 print("Recall: ", metrics.recall_score(y_test, y_pred))
 print("F1 Score: ", metrics.f1_score(y_test, y_pred))
 print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
-
-
-# --------------------- NAIVE BAYES --------------------- #
-# --------------------- LOGISTIC REGRESSION --------------------- #
-# --------------------- K-MEANS --------------------- #
