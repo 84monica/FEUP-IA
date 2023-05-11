@@ -3,8 +3,12 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.svm import SVC
 from imblearn.over_sampling import SMOTE
-from collections import Counter
 
 dataset = pd.read_csv('../dataset/Heart Disease - Processed.csv')
 
@@ -25,7 +29,6 @@ X_train, y_train = smote.fit_resample(X_train, y_train)
 
 time1 = time.time()
 
-# Apply Decision Tree Algorithm
 model_dt = DecisionTreeClassifier()
 model_dt = model_dt.fit(X_train, y_train)
 y_pred = model_dt.predict(X_test)
@@ -33,12 +36,107 @@ y_pred = model_dt.predict(X_test)
 time2 = time.time()
 
 # Evaluate the model
+print("\nDecision Tree ---------------------\n")
 print("Time spent: ", time2 - time1)
-print("Accuracy: ", model_dt.score(X_test, y_test))
+print("\nAccuracy: ", model_dt.score(X_test, y_test))
 print("Precision: ", metrics.precision_score(y_test, y_pred))
 print("Recall: ", metrics.recall_score(y_test, y_pred))
 print("F1 Score: ", metrics.f1_score(y_test, y_pred))
-print("Confusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+print("\nConfusion Matrix\n\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
 
-# --------------------- TODO LIST --------------------- #
-# TODO: More models
+# --------------------- RANDOM FOREST --------------------- #
+
+time1 = time.time()
+
+model_rf = RandomForestClassifier()
+model_rf.fit(X_train, y_train)
+y_pred = model_rf.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nRandom Forest ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_rf.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+# --------------------- NEURAL NETWORK --------------------- #
+
+time1 = time.time()
+
+model_nn = MLPClassifier(hidden_layer_sizes=10)
+model_nn.fit(X_train, y_train)
+y_pred = model_nn.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nNeural Network ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_nn.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+# --------------------- SVM --------------------- #
+
+time1 = time.time()
+
+model_svm = SVC()
+model_svm.fit(X_train, y_train)
+y_pred = model_svm.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nSVM ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_svm.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+# --------------------- LINEAR REGRESSION --------------------- #
+
+time1 = time.time()
+
+model_lr = LinearRegression()
+model_lr.fit(X_train, y_train)
+y_pred = model_lr.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nLinear Regression ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("Mean Squared Error: ", metrics.mean_squared_error(y_test, y_pred))
+print("R-squared: ", metrics.r2_score(y_test, y_pred))
+
+# --------------------- K-NN --------------------- #
+
+time1 = time.time()
+
+model_knn = KNeighborsClassifier()
+model_knn.fit(X_train, y_train)
+y_pred = model_knn.predict(X_test)
+
+time2 = time.time()
+
+# Evaluate the model
+print("\nK-NN ---------------------\n")
+print("Time spent: ", time2 - time1)
+print("\nAccuracy: ", model_knn.score(X_test, y_test))
+print("Precision: ", metrics.precision_score(y_test, y_pred))
+print("Recall: ", metrics.recall_score(y_test, y_pred))
+print("F1 Score: ", metrics.f1_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
+
+
+# --------------------- NAIVE BAYES --------------------- #
+# --------------------- LOGISTIC REGRESSION --------------------- #
+# --------------------- K-MEANS --------------------- #
