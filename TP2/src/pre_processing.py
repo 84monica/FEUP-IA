@@ -1,6 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 
