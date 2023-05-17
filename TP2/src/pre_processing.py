@@ -5,8 +5,13 @@ dataset = pd.read_csv('../dataset/Heart_Disease.csv')
 # --------------------- CLEAN DATASET --------------------- #
 
 # Check and remove duplicates
-duplicate_mask = dataset.duplicated()
-heart_disease = dataset.drop_duplicates()
+count_before = len(dataset)
+print("row count (before) is: ", count_before)
+dataset = dataset.drop_duplicates()
+count_after = len(dataset)
+print("row count (after) is: ", count_after)
+print("number of duplicates: ", count_before-count_after)
+print("")
 
 # --------------------- HANDLING CATEGORICAL FEATURES --------------------- #
 
@@ -21,8 +26,11 @@ dataset['HeartDisease'] = dataset['HeartDisease'].map(d)
 
 # Correlation matrix only with target variable
 corr_matrix = dataset.corr(method='spearman')
+#print("Correlation Method : spearman\n",corr_matrix)
 corr_matrix = corr_matrix.loc[['HeartDisease']]
+#print("Loc HeartDisease\n", corr_matrix)
 corr_matrix = corr_matrix.drop(['HeartDisease'], axis=1)
+print("Corrlation for HeartDisease\n", corr_matrix)
 
 # --------------------- FEATURE SELECTION --------------------- #
 
@@ -31,7 +39,7 @@ treshold = 0.12
 corr_matrix = corr_matrix.loc[:, (abs(corr_matrix) > treshold).any()]
 features_corr = list(corr_matrix.columns)
 dataset = dataset[['HeartDisease'] + features_corr]
-print(features_corr)
+print("\nColumns with high Correlation (>",treshold, "): \n", features_corr)
 
 # Save dataset
-dataset.to_csv('../dataset/Heart Disease - Processed.csv', index=False)
+dataset.to_csv('../dataset/Heart_Disease_Processed.csv', index=False)
