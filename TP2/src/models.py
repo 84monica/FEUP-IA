@@ -1,6 +1,6 @@
 import time
 import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.model_selection import KFold, StratifiedKFold, train_test_split, GridSearchCV, cross_val_score
 from imblearn.over_sampling import SMOTE
 from sklearn import metrics
 from sklearn.tree import DecisionTreeClassifier
@@ -52,7 +52,31 @@ print("F1 Score: ", metrics.f1_score(y_test, y_pred))
 print("\nConfusion Matrix:\n\n", pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted']))
 print("\nClassification report:\n\n", classification_report(y_test, y_pred))
 
+# --------------------- DECISION TREE CROSS VALIDATION --------------------- #
 
+# K-Fold Cross Validation
+
+model_dt = DecisionTreeClassifier(random_state=42)
+k_folds = KFold(n_splits = 5)
+scores = cross_val_score(model_dt, X, y, cv = k_folds)
+
+print("\nDecision Tree using K-fold Cross Validation ---------------------\n")
+print("Cross Validation Scores: ", scores)
+print("Average CV Score: ", scores.mean())
+print("Number of CV Scores used in Average: ", len(scores)) 
+print("\n\n")
+
+# Stratified K-Fold
+
+model_dt = DecisionTreeClassifier(random_state=42)
+sk_folds = StratifiedKFold(n_splits = 5)
+scores = cross_val_score(model_dt, X, y, cv = sk_folds)
+
+print("\nDecision Tree using Stratified K-fold Cross Validation ---------------------\n")
+print("Cross Validation Scores: ", scores)
+print("Average CV Score: ", scores.mean())
+print("Number of CV Scores used in Average: ", len(scores))
+print("\n\n")
 
 # --------------------- DECISION TREE Mod --------------------- #
 
