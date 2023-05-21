@@ -116,7 +116,7 @@ param_grid = {
 grid_search = GridSearchCV(
     estimator=grid_model_dt,
     param_grid=param_grid,
-    scoring="f1",
+    scoring="accuracy",
     cv=5,
     n_jobs=-1
 )
@@ -151,7 +151,7 @@ print("\nClassification report:\n\n", classification_report(y_test, y_pred))
 
 #-----
 
-cross_val_scores = cross_val_score(best_model, X_train, y_train, scoring='f1', cv=5)
+cross_val_scores = cross_val_score(best_model, X_train, y_train, scoring='accuracy', cv=5)
 average_precision = cross_val_scores.mean()
 
 best_model.fit(X_train, y_train)
@@ -168,7 +168,7 @@ sns.heatmap(precision_scores.reshape(len(param_grid['max_depth']), -1),
             yticklabels=param_grid['max_depth'])
 plt.xlabel('min_samples_leaf')
 plt.ylabel('max_depth')
-plt.title('Grid Search f1 Scores')
+plt.title('Grid Search accuracy Scores')
 plt.show()
 
 
